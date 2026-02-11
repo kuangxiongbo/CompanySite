@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OLYM - Next Gen Security Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+              serif: ['Noto Serif SC', 'serif'],
+            },
+            colors: {
+              ibc: {
+                brand: '#00B140', // OLYM Green
+                dark: '#121212',
+                gray: '#F5F5F5',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00B140; 
+      }
+      .mega-menu-enter {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      .mega-menu-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 300ms, transform 300ms;
+      }
+      .mega-menu-exit {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .mega-menu-exit-active {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 200ms, transform 200ms;
+      }
+      /* Logo Font Tweaks */
+      .font-olym {
+         font-family: 'Inter', sans-serif;
+         letter-spacing: -0.05em;
+      }
+
+      /* Scroll Animation Utilities */
+      .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Stagger delays */
+      .delay-100 { transition-delay: 100ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+
+      /* Sticky Section Height Fix */
+      .sticky-viewport-height {
+        height: 100vh;
+        height: 100dvh; /* dynamic viewport height for mobile */
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-white text-gray-900 font-sans antialiased">
+    <div id="root"></div>
+  </body>
+</html>
