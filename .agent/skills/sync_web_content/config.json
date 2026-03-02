@@ -1,0 +1,31 @@
+{
+    "project": {
+        "name": "CompanySite",
+        "root": "../../../.."
+    },
+    "source": {
+        "domain": "new.myibc.net",
+        "listUrl": "https://img.wanwang.xin/pubsf/10298/10298781/cdn-static-pages/pages/pc/2048_zh-cn.html.Body.js?version=20260114144549",
+        "referer": "https://new.myibc.net/",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    },
+    "extraction": {
+        "listStrategy": "js_document_write",
+        "detailIdRegex": "/newsinfo/(\\d+)\\.html",
+        "idPrefix": "news-",
+        "contentSelectors": [
+            "#mainContentWrapper",
+            ".w-detail-content",
+            ".news-content",
+            ".article-content",
+            "#article-body",
+            ".content-body",
+            "article"
+        ]
+    },
+    "storage": {
+        "dataFile": "data/news.ts",
+        "uploadDir": "public/upload",
+        "publicPathPrefix": "/upload/"
+    }
+}

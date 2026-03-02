@@ -16,5 +16,28 @@ View your app in AI Studio: https://ai.studio/apps/drive/1bomHyxz2dg7CRDYqtiptqd
 1. Install dependencies:
    `npm install`
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
    `npm run dev`
+
+## Backend Server
+
+The application now includes a Node.js + Express backend with MySQL.
+
+### Prerequisites
+- MySQL local instance (default port 3306)
+- Create database `olym_db` (or set `DB_NAME` in .env)
+
+### Installation
+1. Go to `server/`: `cd server`
+2. Install dependencies: `npm install`
+3. Configure `.env`:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your MySQL credentials
+   ```
+4. Start server: `npm start` (or `npm run dev` for nodemon)
+
+### API Endpoints
+- `POST /api/auth/login`: Admin login
+- `GET /api/news`: Get news
+- `GET /api/products`: Get products
+

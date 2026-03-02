@@ -1,57 +1,118 @@
+
 import React from 'react';
 import { PageHero } from '../components/PageHero';
-import { useLanguage } from '../contexts/LanguageContext';
-import { Headphones, BookOpen, AlertTriangle, Lightbulb } from 'lucide-react';
+import { serviceContentData } from '../data/services';
+import { Download, HelpCircle, MessageSquare, GraduationCap, Code, Phone, Headphones, Shield, Cpu, Activity, AlertTriangle, FileText, Database, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const ServicesPage: React.FC = () => {
-  const { language } = useLanguage();
-
-  const services = [
-    {
-      title: language === 'zh' ? "Unit 42 事件响应" : "Unit 42 Incident Response",
-      desc: language === 'zh' ? "受到攻击？我们的精英响应团队可以全天候为您提供帮助，最大限度地减少影响并恢复运营。" : "Under attack? Our elite response team is available 24/7 to minimize impact and restore operations.",
-      icon: AlertTriangle
-    },
-    {
-      title: language === 'zh' ? "专业咨询服务" : "Professional Consulting",
-      desc: language === 'zh' ? "从架构设计到实施，我们的专家将指导您的每一步，确保最佳的安全态势。" : "From architecture to implementation, our experts guide you every step of the way to ensure optimal security posture.",
-      icon: Lightbulb
-    },
-    {
-      title: language === 'zh' ? "教育与培训" : "Education & Training",
-      desc: language === 'zh' ? "通过官方培训和认证计划，提升您团队的网络安全技能。" : "Empower your team with cybersecurity skills through our official training and certification programs.",
-      icon: BookOpen
-    },
-    {
-      title: language === 'zh' ? "客户支持" : "Customer Support",
-      desc: language === 'zh' ? "无论何时何地，我们的全球支持团队随时待命，为您解决技术难题。" : "Whenever, wherever. Our global support team is ready to solve your technical challenges.",
-      icon: Headphones
-    }
-  ];
+  const { overview, basicServices, valueAddedServices } = serviceContentData;
 
   return (
     <div className="bg-white">
-      <PageHero 
-        title={language === 'zh' ? "服务与支持" : "Services & Support"} 
-        subtitle={language === 'zh' ? "专家指导、全天候支持和世界级的情报，助您从容应对安全挑战。" : "Expert guidance, 24/7 support, and world-class intelligence to help you tackle security challenges with confidence."}
-        image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop"
+      <PageHero
+        title={overview.title}
+        subtitle="专业服务，全心为您"
+        image="/upload/about/profile/banner.png"
       />
-      
-      <div className="max-w-7xl mx-auto px-6 py-24">
-         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((s, i) => (
-               <div key={i} className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:border-ibc-brand/50 hover:shadow-lg transition-all text-center">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-ibc-brand">
-                     <s.icon size={32} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4">{s.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6">{s.desc}</p>
-                  <a href="#" className="text-ibc-brand font-bold text-sm hover:underline">
-                     {language === 'zh' ? "了解更多" : "Learn More"}
-                  </a>
-               </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-24 space-y-32">
+        {/* Overview Section */}
+        <div className="text-center max-w-4xl mx-auto space-y-8">
+          <p className="text-2xl text-gray-500 font-medium leading-relaxed">
+            {overview.description}
+          </p>
+          <div className="flex justify-center gap-8 text-ibc-brand font-bold text-lg">
+            <div className="flex items-center gap-2 px-6 py-3 bg-ibc-brand/5 rounded-full">
+              <Headphones /> 5×9小时日常服务
+            </div>
+            <div className="flex items-center gap-2 px-6 py-3 bg-ibc-brand/5 rounded-full">
+              <Activity /> 7×24小时特定保障
+            </div>
+          </div>
+        </div>
+
+        {/* Basic Services Section */}
+        <div className="space-y-16">
+          <div className="flex items-center gap-6">
+            <div className="w-12 h-1 bg-ibc-brand"></div>
+            <h2 className="text-4xl font-black text-gray-900 tracking-tight">{basicServices.title}</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {basicServices.items.map((item, index) => (
+              <div key={index} className="group p-10 bg-white border border-gray-100 rounded-[2.5rem] hover:border-ibc-brand/30 hover:shadow-xl transition-all duration-300">
+                <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-ibc-brand mb-8 group-hover:bg-ibc-brand group-hover:text-white transition-all">
+                  {index === 0 && <Cpu size={32} />}
+                  {index === 1 && <MessageSquare size={32} />}
+                  {index === 2 && <AlertTriangle size={32} />}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed font-medium">
+                  {item.description}
+                </p>
+              </div>
             ))}
-         </div>
+          </div>
+        </div>
+
+        {/* Value-added Services Section */}
+        <div className="space-y-16">
+          <div className="flex items-center gap-6">
+            <div className="w-12 h-1 bg-ibc-brand"></div>
+            <h2 className="text-4xl font-black text-gray-900 tracking-tight">{valueAddedServices.title}</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {valueAddedServices.items.map((item: any, index: number) => (
+              <div key={index} className="group p-10 bg-gray-50 rounded-[2.5rem] hover:bg-white hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-gray-100 flex flex-col h-full">
+                <div className="flex items-center gap-5 mb-8">
+                  <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-gray-400 group-hover:text-ibc-brand shadow-sm group-hover:shadow-md transition-all duration-500">
+                    {index === 0 && <Activity size={24} />}
+                    {index === 1 && <Shield size={24} />}
+                    {index === 2 && <AlertTriangle size={24} />}
+                    {index === 3 && <FileText size={24} />}
+                    {index === 4 && <Database size={24} />}
+                    {index === 5 && <Layers size={24} />}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 leading-tight">{item.title}</h3>
+                </div>
+                <p className="text-gray-500 leading-relaxed mb-8 font-medium">
+                  {item.description}
+                </p>
+                {item.subItems && (
+                  <div className="mt-auto pt-8 border-t border-gray-100 flex flex-wrap gap-2">
+                    {item.subItems.map((sub: string, subIndex: number) => (
+                      <span
+                        key={subIndex}
+                        className="px-4 py-1.5 bg-white text-gray-600 text-sm font-bold rounded-lg border border-gray-100 group-hover:border-ibc-brand/20 group-hover:text-ibc-brand transition-colors duration-300"
+                      >
+                        {sub}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-gray-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-ibc-brand/20 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-ibc-brand/30 transition-colors duration-700"></div>
+          <div className="relative z-10 space-y-8">
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">需要更多帮助？</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto font-medium">
+              我们的技术专家随时准备为您解答疑问，提供最专业的支持。
+            </p>
+            <div className="flex flex-wrap justify-center gap-6 pt-8">
+              <Link to="/about/contact" className="bg-ibc-brand/90 hover:bg-ibc-brand text-white px-10 py-5 rounded-2xl font-black text-lg transition-all hover:scale-105 active:scale-95 shadow-lg shadow-ibc-brand/25">
+                联系技术支持
+              </Link>
+              <Link to="/services/downloads" className="bg-white/10 hover:bg-white/20 text-white px-10 py-5 rounded-2xl font-black text-lg transition-all hover:scale-105 active:scale-95 backdrop-blur-sm border border-white/10">
+                访问下载中心
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

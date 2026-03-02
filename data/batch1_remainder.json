@@ -1,0 +1,288 @@
+[
+    {
+        "url": "https://new.myibc.net/newsinfo/8704272.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联荣获蚂蚁集团旗下隐语开源社区“优秀生态合作伙伴”",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-08-27",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "在隐语开源社区三周年庆典上，奥联凭借自主研发的隐私计算服务平台在联邦学习和多方安全计算等核心技术领域的创新突破，以及基于隐语开源框架的深度二次开发能力和对开源生态的持续技术贡献，荣获“优秀生态合作伙伴”殊荣。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/8266261.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联推出可搜索加密技术SQE：密文查询性能提升百倍",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-04-13",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "4月10日至11日，2025中国移动云智算大会在苏州举行。大会以“由云向智，共绘算网新生态”为主题，政产学研用各界代表聚焦云智算最新实践和发展趋势，探讨共绘云智算发展美好图景。",
+                "tag": "span"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "奥联在大会上重磅发布了“可搜索加密技术（SQE）”。该技术基于自研的创新型密码算法，实现在高强度加密的数据库中进行精确查询和模糊查询，检索性能相比传统方案提升百倍以上，极大提升了密文数据的可用性。",
+                "tag": "span"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/7966865.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联入选《2024中国网络安全行业全景册（第七版）》6项细分领域",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-01-14",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "近期， FreeBuf咨询正式发布《CCSIP 2024中国网络安全行业全景册（第七版）》。奥联凭借卓越的技术实力和市场表现，成功入选通信网络安全、车联网安全、身份识别与访问管理、数据安全、各行业解决方案等6项细分领域。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "tag": "img"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/8678945.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "亮相海光生态大会，奥联发布海光系列商密一体机",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-08-18",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "8月15日，由国家先进计算产业创新中心下属产业协作平台——海光产业生态合作组织（简称“光合组织”）主办的“同源共智·芯业长青——2025光合组织领导人大会”在西宁召开。奥联在会上正式发布商密一体机系列产品。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "该系列基于海光CPU的TKM、SME、CCP、CSV等安全能力赋能商用密码，形成了一一系列密码硬件产品、构建了全密码算法系列的密码创新生态体系。全面支持商用密码算法及PQC密码算法，以高效、轻量、可靠的密码解决方案全方位满足GB/T39786《信息安全技术 信息系统密码应用基本要求》合规性要求。",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "数据库透明加密系统：基于多种透明加密技术，完全无需修改现有应用系统代码。依托海光CPU的底层密码能力，支持高性能SQE（可搜索加密），支持密文检索与运算，保障加密数据安全的同时实现高效查询。严格遵循国家密码管理局规范，全面满足等保、密评等合规性要求，易于部署，即装即用。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "综合安全网关：提供IPSec、SSL及透明加密三种通道保护模式，灵活适配各类业务场景。 集成SM9/SM2等多种国密认证方式，实现高强度身份鉴别。该网关可无缝集成现有应用系统，快速满足密码应用改造需求，一站式解决身份认证与数据传输加密，有效支撑等保、密评等合规要求。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "云服务器密码机：基于海光5380双路硬件平台开发，采用SR-IOV硬件隔离、虚拟化技术，为云计算提供安全可靠、租户隔离的随机数生成、密钥生成与存储、密码计算等按需供给的密码资源服务，满足云计算场景下的身份认证、安全传输、数据加密等对密钥安全、密码算力的应用需求。",
+                "tag": "div"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/8266236.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联出席第5期“贺兰山密话”商用密码应用与创新发展大讲堂",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-04-16",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "4月15日，由宁夏商密协会、宁夏医学会卫生信息学分会主办，深圳奥联信息安全技术有限公司等单位承办的第5期“贺兰山密话”商用密码应用与创新发展大讲堂在宁夏银川举行。",
+                "tag": "section"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "本期大讲堂以“商用密码护航医疗卫生健康数智化高质量发展”为主题，面向医疗卫生行业，邀请了权威专家解读密码技术最新 application 成果，并围绕互联网医院、公卫服务、医疗数据等核心场景，剖析商用密码实践路径，推动密码技术与医疗业务深度融合发展。",
+                "tag": "section"
+            },
+            {
+                "type": "text",
+                "content": "会上，奥联副总裁蔡先勇发表《商用密码在医疗卫生领域的应用交流》主题演讲。针对医院业务系统复杂、数据量大、业务持续性要求高等特点，奥联基于高性能可搜索加密技术、无介质的高安全身份认证技术、B/S应用认证与源数据保护技术、高性能+高可靠+分布式大数据敏感数据加密技术，构建了业务系统免改造、高性能、高可用的改造方案。",
+                "tag": "section"
+            },
+            {
+                "type": "text",
+                "content": "在嘉宾访谈环节，蔡先勇表示，医疗系统的密改已经有很多经验可以借鉴，技术也比较成熟，有规可循。用药之前要“望闻问切” ，梳理系统的数据流、业务场景、敏感数据定义，用药也考虑\"对症下药\"。",
+                "tag": "span"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/8162463.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "新品发布 | Harmony OS NEXT商用密码中间件软件密码模块",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-03-19",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "3月18日，奥联发布Harmony OS NEXT商用密码中间件软件密码模块，支持鸿蒙系统（Harmony OS NEXT），现已发布商用版本。模块支持多种国密、国际算法，可为应用提供数据加解密、签名验签、身份认证、通道加密等功能，支持国密SSL、Websocket等。",
+                "tag": "span"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "- 具备行业领先级的技术优势 - (1)接口丰富 (2)易于部署 (3)功能完备 (4)安全连接 (5)拓展性强",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "- SDK信息 - SDK名称：鸿蒙终端密码模块 开发者：深圳奥联信息安全技术有限公司 版本号：3.4.3 更新日期：2026-01-14",
+                "tag": "span"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/7966846.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联入选第二期《数字安全护航技术能力全景图》19项细分领域",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2025-01-09",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "近日，中国信通院“数字安全护航计划”正式发布第二期《数字安全护航技术能力全景图》，奥联入选堡垒机、车联网安全、大数据保护、个人信息保护、加解密、加密通信、密码应用服务等19项细分领域，展现数据安全强护航能力。",
+                "tag": "div"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.png",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "本次全景图共计14项一级类目、103项细分领域，收到报名申请单位391家，经评审评估，录入首期全景图的厂商有147家。旨在为助推中国数字经济高质量发展提供有力支持。",
+                "tag": "span"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/7966772.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "奥联获西电网络与信息安全学院颁发“协同育人与创新杰出伙伴”",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：2024-12-29",
+                "tag": "div"
+            },
+            {
+                "type": "text",
+                "content": "12月27日，“一流网络安全学院高质量发展大会”在西安电子科技大学举行。会上，深圳奥联信息安全技术有限公司获颁“协同育人与创新杰出伙伴”。",
+                "tag": "span"
+            },
+            {
+                "type": "image",
+                "content": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "src": "/upload/local_images/aHR0cHM6Ly9pbWc.jpg",
+                "tag": "img"
+            },
+            {
+                "type": "text",
+                "content": "奥联与西电有着深厚的合作基础：2018年成立“西电密码研究中心”，2021年成立“密码技术及应用创新实验室”。双方开展校企融合创新教育模式，合作打造“CryptoLab密码实训平台”，旨在培养动手能力强的密码学人才。",
+                "tag": "span"
+            }
+        ]
+    }
+]

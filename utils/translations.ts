@@ -27,10 +27,10 @@ export const translations = {
           title: "政务安全",
           items: [
             "政务外网数据安全总线解决方案",
-            "政务信息系统商用密码改造方案",
+            "政务信息系统密改解决方案",
             "政务云密码资源池方案",
-            "党政机关安全电子邮件数据安全方案",
-            "政务外网远程安全接入方案",
+            "党政机关央国企安全邮件密码应用方案",
+            "政务外网安全接入密码应用方案",
             "政务外网数据透明传输加密方案",
             "政务即时通讯及移动办公密码应用方案"
           ]
@@ -42,7 +42,7 @@ export const translations = {
             "数据脱敏水印改造方案",
             "4A统一安全管控平台密码应用方案",
             "数据中心和云服务统一密码服务平台解决方案",
-            "IDC/ISP互联网信息安全管理系统密码改造",
+            "IDC/ISP互联网信息安全管理系统密码改造方案",
             "零信任网关安全合规改造方案"
           ]
         },
@@ -50,7 +50,7 @@ export const translations = {
           title: "企业安全",
           items: [
             "石油天然气工控系统密码应用解决方案",
-            "水利资源监控与调度平台及PLC密码应用",
+            "水利资源监控与调度平台及PLC密码应用解决方案",
             "电力能源系统轻量级密码应用解决方案",
             "国有企业海外安全通信密码应用解决方案",
             "企业微信商用密码应用解决方案",
@@ -62,14 +62,14 @@ export const translations = {
           title: "自然资源安全",
           items: [
             "时空大数据服务平台国密应用方案",
-            "准站/观测站等商用密码应用建设方案",
+            "基准站/观测站等商用密码应用建设方案",
             "地理测绘行业数据安全分发解决方案"
           ]
         },
         other: {
           title: "其他行业安全",
           items: [
-            "医疗行业保障信息平台密码应用方案",
+            "医疗保障信息平台密码应用方案",
             "智能网联车行业密码技术应用方案",
             "金融行业数据安全解决方案",
             "智慧教育信息系统密码应用方案"
@@ -78,18 +78,18 @@ export const translations = {
       }
     },
     hero: {
-      badge: "技术突破",
-      badgeText: "新一代 IBC 标识密码安全网关发布",
-      titleStart: "构建数字世界的",
-      titleEnd: "可信基石",
-      subtitle: "奥联 (OLYM) 致力于将标识密码技术 (IBC) 与现代云架构深度融合，为物联网、工业互联网及政企数字化转型提供原生的安全保障。",
+      badge: "核心技术",
+      badgeText: "SM9 / IBC 标识密码算法",
+      titleStart: "民族密码",
+      titleEnd: "奥联智造",
+      subtitle: "基于 SM9 标识密码算法，致力于为国家关键信息基础设施提供自主可控的密码安全保障。作为 SM9 算法原研单位，我们定义的不仅仅是标准，更是安全的未来。",
       explore: "探索产品",
       demo: "在线体验",
       stats: {
-        customers: "服务客户",
-        fortune: "覆盖行业",
-        countries: "专利技术",
-        rating: "国密认证"
+        customers: "创立于",
+        fortune: "承接国家课题",
+        countries: "全国分支机构",
+        rating: "专精特新认证"
       }
     },
     ticker: {
@@ -97,54 +97,59 @@ export const translations = {
     },
     products: {
       heroTitle: "全栈安全产品矩阵",
-      heroSubtitle: "从底层密码算法到上层应用安全，提供端到端的合规防护能力。",
+      heroSubtitle: '以"密码"为核心的安全产品矩阵，从底层密码算法到上层应用安全，提供端到端的合规防护能力。',
       categories: {
         cryptography: {
-          title: "密码基础设施",
-          desc: "高性能服务器密码机、签名验签服务器及密钥管理系统。",
-          items: ["服务器密码机", "签名验签服务器", "密钥管理系统 (KMS)", "时间戳服务器"]
+          title: "密码基础产品类",
+          desc: "高性能密码运算设备，提供密钥生成、数字签名、数据加解密等基础密码服务。",
+          items: ["服务器密码机", "云服务器密码机", "签名验签服务器", "智能密码钥匙", "协同签名系统", "TEE密码模块", "软件密码模块", "PCI-E密码卡"]
         },
-        identity: {
-          title: "身份与访问安全",
-          desc: "基于零信任架构的新一代身份认证与访问控制平台。",
-          items: ["统一身份认证 (IAM)", "零信任访问网关", "移动安全认证", "单点登录系统"]
+        management: {
+          title: "密码管理平台类",
+          desc: "统一管理和调度密码资源，实现密码服务的集中化、平台化、可视化。",
+          items: ["统一密码服务平台", "密钥管理系统", "证书认证系统", "密码资源运维平台", "商用密码监管平台"]
         },
-        iot: {
-          title: "物联网安全",
-          desc: "轻量级、低功耗的 IoT 设备身份认证与数据加密方案。",
-          items: ["IoT 安全网关", "设备安全 SDK", "视频专网安全", "车联网安全模组"]
+        authTrans: {
+          title: "认证与传输类",
+          desc: "基于国密算法的安全接入与数据传输解决方案，保障网络通信安全。",
+          items: ["安全接入网关", "综合安全网关", "数据安全传输SSL VPN", "透明加密网关", "安全接入终端", "4G无线数据终端"]
         },
         data: {
-          title: "数据安全",
-          desc: "全生命周期的数据加密、脱敏与防泄漏保护。",
-          items: ["数据库加密", "数据防泄漏 (DLP)", "文件加密系统", "云盘安全加密"]
+          title: "数据安全类",
+          desc: "全生命周期的数据加密、脱敏与防泄漏保护，覆盖存储、传输、使用各环节。",
+          items: ["数据库加解密系统", "数据安全服务平台", "数据脱敏与水印溯源平台", "隐私计算服务平台", "安全存储分发系统", "文件分发管控系统", "文件透明加解密系统", "国密堡垒机", "视频加密服务器", "加密即时通讯平台/客户端", "邮件加密网关", "安全邮件客户端"]
+        },
+        iot: {
+          title: "物联网安全类",
+          desc: "轻量级、低功耗的 IoT 设备身份认证与数据加密方案。",
+          items: ["视频安全产品", "工业互联网安全标识解析系统", "物联网安全模组"]
         },
         postQuantum: {
           title: "后量子系列",
           desc: "面向未来的抗量子密码迁移解决方案与高性能密码设备。",
-          items: ["抗量子密码机", "抗量子证书认证系统", "抗量子密钥管理系统", "抗量子系列产品"]
+          items: ["后量子密码机", "后量子证书认证系统", "抗量子密钥管理系统", "抗量子系列产品"]
         }
       }
     },
     research: {
-      heroTitle: "前沿技术研究",
-      heroSubtitle: "探索密码学边界，引领数字安全未来。",
+      heroTitle: "技术研究",
+      heroSubtitle: "以国密算法为核心，引领密码技术创新与标准化。",
       areas: [
         {
-          title: "标准制定",
-          desc: "积极参与国家和行业密码标准制定，推动国密算法的标准化进程。"
+          title: "标准定制",
+          desc: "牵头及参与制定多项国际、国家及行业密码标准 (SM9, IETF, ISO/IEC)。"
+        },
+        {
+          title: "前沿技术",
+          desc: "聚焦全同态加密、隐私计算及抗量子密码等前沿领域。"
         },
         {
           title: "产学研用",
-          desc: "链接学术界与产业界，加速密码理论研究向实际应用的转化。"
+          desc: "建立联合实验室，推动密码理论成果向产业应用转化。"
         },
         {
-          title: "产业教育",
-          desc: "培养新一代密码技术人才，构建可持续发展的密码产业生态。"
-        },
-        {
-          title: "前沿探索",
-          desc: "聚焦全同态加密、多方安全计算等前沿技术，布局未来安全赛道。"
+          title: "人才培养",
+          desc: "构建密码人才培养体系，支撑国家网络安全战略。"
         }
       ]
     },
@@ -231,16 +236,16 @@ export const translations = {
         ]
       },
       researchTopics: {
-         title: "课题研究",
-         list: [
-            { title: "《物联网/工业互联网/车联网轻量级密码技术应用》" },
-            { title: "《广阳岛生态城自动驾驶与车路协同商用密码应用示范项目》" },
-            { title: "《工业互联网标识解析安全技术及设备项目》" },
-            { title: "《重20170378基于国家SM9算法的密码服务关键技术研发》" },
-            { title: "《面向移动互联网数据防护的国产密码保障体系研究与应用实现》" },
-            { title: "《物联网密码技术及安全通讯模组研发及验证》" },
-            { title: "《重2021117基于高效无证书密码系统的智能网联汽车安全芯片关键技术的研发》" }
-         ]
+        title: "课题研究",
+        list: [
+          { title: "《物联网/工业互联网/车联网轻量级密码技术应用》" },
+          { title: "《广阳岛生态城自动驾驶与车路协同商用密码应用示范项目》" },
+          { title: "《工业互联网标识解析安全技术及设备项目》" },
+          { title: "《重20170378基于国家SM9算法的密码服务关键技术研发》" },
+          { title: "《面向移动互联网数据防护的国产密码保障体系研究与应用实现》" },
+          { title: "《物联网密码技术及安全通讯模组研发及验证》" },
+          { title: "《重2021117基于高效无证书密码系统的智能网联汽车安全芯片关键技术的研发》" }
+        ]
       }
     },
     news: {
@@ -248,6 +253,8 @@ export const translations = {
       subheading: "了解奥联的最新动态、技术突破与行业见解。",
       viewAll: "查看更多",
       readMore: "阅读全文",
+      prevPage: "上一页",
+      nextPage: "下一页",
       items: [
         {
           type: "企业新闻",
@@ -280,9 +287,9 @@ export const translations = {
       history: "发展历程",
       culture: "企业文化",
       contact: "联系我们",
-      address: "地址",
-      email: "邮箱",
-      phone: "电话"
+      address: "深圳市宝安中心区宝兴路6号海纳百川大厦B座16楼",
+      email: "service@myibc.net",
+      phone: "0755-86182108"
     },
     cta: {
       title: "准备好构建安全防线了吗？",
@@ -291,18 +298,18 @@ export const translations = {
       contact: "联系我们"
     },
     split: {
-      badge: "核心优势",
-      titleStart: "让安全更智能",
-      titleEnd: "更高效",
-      desc: "利用 IBC 标识密码技术的独特优势，我们将身份认证与密钥管理简化到了极致，为您节省 90% 的运维成本。",
+      badge: "行业赋能",
+      titleStart: "奥联智造",
+      titleEnd: "安全基石",
+      desc: "奥联深度融合密码技术与业务场景，为政务、金融、能源等关键领域提供其核心安全能力，助力数字经济高质量发展。",
       points: [
-        "无证书管理：大幅降低 PKI 系统的复杂度",
-        "端到端加密：保障数据在传输和存储中的绝对安全",
-        "轻量级部署：适配各种物联网终端与移动设备"
+        "国密合规：完全符合国家商用密码应用安全性评估要求",
+        "自主可控：SM9 算法原研单位，核心技术完全自主",
+        "降本增效：无证书体系大幅降低运维成本与复杂度"
       ],
-      button: "了解技术原理",
+      button: "查看解决方案",
       floatingMetric: "安全可靠",
-      floatingSub: "基于国密算法"
+      floatingSub: "全栈国密产品"
     },
     footer: {
       desc: "奥联 (OLYM) —— 专注标识密码技术，护航数字经济发展。",
@@ -310,43 +317,43 @@ export const translations = {
       manageCookies: "Cookie 设置",
       columns: {
         products: {
-            title: "安全产品",
-            items: [
-                { label: "密码基础产品类", href: "/products/infrastructure" },
-                { label: "密码管理平台类", href: "/products/management" },
-                { label: "认证与传输类", href: "/products/auth-trans" },
-                { label: "数据安全类", href: "/products/data-security" },
-                { label: "物联网安全类", href: "/products/iot" },
-                { label: "后量子系列", href: "/products/post-quantum" }
-            ]
+          title: "安全产品",
+          items: [
+            { label: "密码基础产品类", href: "/products/infrastructure" },
+            { label: "密码管理平台类", href: "/products/management" },
+            { label: "认证与传输类", href: "/products/auth-trans" },
+            { label: "数据安全类", href: "/products/data-security" },
+            { label: "物联网安全类", href: "/products/iot" },
+            { label: "后量子系列", href: "/products/post-quantum" }
+          ]
         },
         solutions: {
-            title: "解决方案",
-            items: [
-                { label: "政务安全", href: "/solutions/gov" },
-                { label: "运营商安全", href: "/solutions/operator" },
-                { label: "企业安全", href: "/solutions/enterprise" },
-                { label: "自然资源安全", href: "/solutions/resources" },
-                { label: "其他行业安全", href: "/solutions/other" }
-            ]
+          title: "解决方案",
+          items: [
+            { label: "政务安全", href: "/solutions/gov" },
+            { label: "运营商安全", href: "/solutions/operator" },
+            { label: "企业安全", href: "/solutions/enterprise" },
+            { label: "自然资源安全", href: "/solutions/resources" },
+            { label: "其他行业安全", href: "/solutions/other" }
+          ]
         },
         research: {
-            title: "技术研究",
-            items: [
-                { label: "标准制定", href: "/research/standards" },
-                { label: "产学研用", href: "/research/academic" },
-                { label: "产业教育", href: "/research/education" }
-            ]
+          title: "技术研究",
+          items: [
+            { label: "标准制定", href: "/research/standards" },
+            { label: "前沿技术", href: "/research/frontier" },
+            { label: "产学研用", href: "/research/academic" }
+          ]
         },
         about: {
-            title: "关于奥联",
-            items: [
-                { label: "最新动态", href: "/news" },
-                { label: "关于奥联", href: "/about/profile" },
-                { label: "发展历程", href: "/about/history" },
-                { label: "荣誉资质", href: "/about/honors" },
-                { label: "招贤纳士", href: "/about/careers" }
-            ]
+          title: "关于奥联",
+          items: [
+            { label: "最新动态", href: "/news" },
+            { label: "关于奥联", href: "/about/profile" },
+            { label: "发展历程", href: "/about/history" },
+            { label: "荣誉资质", href: "/about/honors" },
+            { label: "招贤纳士", href: "/about/careers" }
+          ]
         }
       }
     },
@@ -360,31 +367,31 @@ export const translations = {
       thinking: "正在思考..."
     },
     tabs: {
-      heading: "核心安全能力",
-      subheading: "以密码技术为基因，融合云计算与人工智能，打造全场景安全底座。",
+      heading: "算法筑基 · 全面赋能",
+      subheading: "以 SM9、ECS、抗量子密码算法为核心，构建自主可控的安全底座。",
       strata: {
         product: "SM9 / IBC",
-        name: "标识密码技术",
-        title: "无证书、轻量级、易管理",
+        name: "SM9 标识密码",
+        title: "无证书、轻量级",
         desc: "奥联作为 SM9 算法国家标准原研单位，提供基于标识密码的一站式安全解决方案，彻底解决传统 PKI 体系证书管理复杂的痛点。",
-        link: "了解 IBC 技术",
+        link: "了解 SM9 技术",
         features: ["无需证书管理", "海量设备接入", "国密合规"]
       },
       prisma: {
-        product: "Zero Trust",
-        name: "零信任安全",
-        title: "永不信任，始终验证",
-        desc: "构建以身份为中心的动态访问控制体系，确保只有合法的用户和设备才能访问核心数据与应用。",
-        link: "了解零信任",
-        features: ["统一身份管理", "动态授权", "微隔离"]
+        product: "ECS Sig",
+        name: "ECS 数字签名",
+        title: "高效、安全、可信",
+        desc: "基于椭圆曲线的高效数字签名技术（ECS），保障电子政务、金融交易等高频场景下的数据真实性与完整性。",
+        link: "了解数字签名",
+        features: ["高效验签", "数据完整性", "抗抵赖"]
       },
       cortex: {
-        product: "Data Sec",
-        name: "数据安全",
-        title: "Security in Motion",
-        desc: "提供覆盖数据采集、传输、存储、处理全生命周期的加密保护，确保数据资产的机密性与完整性。",
-        link: "了解数据安全",
-        features: ["透明加解密", "隐私计算", "数据脱敏"]
+        product: "PQC",
+        name: "抗量子密码",
+        title: "面向未来，抵御威胁",
+        desc: "布局后量子密码（PQC）技术，针对未来量子计算可能带来的安全威胁，提供前瞻性的算法迁移与防护方案。",
+        link: "了解抗量子",
+        features: ["格密码技术", "抗量子攻击", "前瞻布局"]
       }
     }
   },
@@ -496,8 +503,8 @@ export const translations = {
       national: {
         title: "National Standards",
         list: [
-           { title: "GB/T 41389-2022 《Information security technology - SM9 cryptographic algorithm usage specification》" },
-           { title: "GB/T 38635.1-2020 《Information security technology - SM9 identity-based cryptographic algorithms - Part 1: General》" }
+          { title: "GB/T 41389-2022 《Information security technology - SM9 cryptographic algorithm usage specification》" },
+          { title: "GB/T 38635.1-2020 《Information security technology - SM9 identity-based cryptographic algorithms - Part 1: General》" }
         ]
       },
       industry: {
@@ -520,10 +527,10 @@ export const translations = {
       explore: "Explore Products",
       demo: "Live Demo",
       stats: {
-        customers: "Customers",
-        fortune: "Industries",
-        countries: "Patents",
-        rating: "Certifications"
+        customers: "Established",
+        fortune: "National Projects",
+        countries: "Branches",
+        rating: "Certification"
       }
     },
     ticker: {
@@ -587,6 +594,8 @@ export const translations = {
       subheading: "Latest updates, breakthroughs, and insights from OLYM.",
       viewAll: "View All",
       readMore: "Read More",
+      prevPage: "Previous",
+      nextPage: "Next",
       items: [
         {
           type: "Corporate",
@@ -619,9 +628,9 @@ export const translations = {
       history: "History",
       culture: "Culture",
       contact: "Contact Us",
-      address: "Address",
-      email: "Email",
-      phone: "Phone"
+      address: "16/F, Block B, Hainabichuan Building, No.6 Baoxing Road, Bao'an, Shenzhen",
+      email: "service@myibc.net",
+      phone: "0755-86182108"
     },
     cta: {
       title: "Ready to Secure Your Business?",
@@ -649,43 +658,43 @@ export const translations = {
       manageCookies: "Manage Cookies",
       columns: {
         products: {
-            title: "Security Products",
-            items: [
-                { label: "Crypto Infrastructure", href: "/products/infrastructure" },
-                { label: "Crypto Management", href: "/products/management" },
-                { label: "Auth & Transmission", href: "/products/auth-trans" },
-                { label: "Data Security", href: "/products/data-security" },
-                { label: "IoT Security", href: "/products/iot" },
-                { label: "Post Quantum Series", href: "/products/post-quantum" }
-            ]
+          title: "Security Products",
+          items: [
+            { label: "Crypto Infrastructure", href: "/products/infrastructure" },
+            { label: "Crypto Management", href: "/products/management" },
+            { label: "Auth & Transmission", href: "/products/auth-trans" },
+            { label: "Data Security", href: "/products/data-security" },
+            { label: "IoT Security", href: "/products/iot" },
+            { label: "Post Quantum Series", href: "/products/post-quantum" }
+          ]
         },
         solutions: {
-            title: "Solutions",
-            items: [
-                { label: "Government Security", href: "/solutions/gov" },
-                { label: "Operator Security", href: "/solutions/operator" },
-                { label: "Enterprise Security", href: "/solutions/enterprise" },
-                { label: "Natural Resources", href: "/solutions/resources" },
-                { label: "Other Industries", href: "/solutions/other" }
-            ]
+          title: "Solutions",
+          items: [
+            { label: "Government Security", href: "/solutions/gov" },
+            { label: "Operator Security", href: "/solutions/operator" },
+            { label: "Enterprise Security", href: "/solutions/enterprise" },
+            { label: "Natural Resources", href: "/solutions/resources" },
+            { label: "Other Industries", href: "/solutions/other" }
+          ]
         },
         research: {
-            title: "Technical Research",
-            items: [
-                { label: "Standard Formulation", href: "/research/standards" },
-                { label: "Industry-Academia", href: "/research/academic" },
-                { label: "Industry Education", href: "/research/education" }
-            ]
+          title: "Technical Research",
+          items: [
+            { label: "Standard Formulation", href: "/research/standards" },
+            { label: "Industry-Academia", href: "/research/academic" },
+            { label: "Industry Education", href: "/research/education" }
+          ]
         },
         about: {
-            title: "About OLYM",
-            items: [
-                { label: "Latest News", href: "/news" },
-                { label: "About Us", href: "/about/profile" },
-                { label: "History", href: "/about/history" },
-                { label: "Honors", href: "/about/honors" },
-                { label: "Careers", href: "/about/careers" }
-            ]
+          title: "About OLYM",
+          items: [
+            { label: "Latest News", href: "/news" },
+            { label: "About Us", href: "/about/profile" },
+            { label: "History", href: "/about/history" },
+            { label: "Honors", href: "/about/honors" },
+            { label: "Careers", href: "/about/careers" }
+          ]
         }
       }
     },

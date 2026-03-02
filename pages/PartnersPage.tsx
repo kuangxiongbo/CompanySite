@@ -11,7 +11,7 @@ export const PartnersPage: React.FC = () => {
       <PageHero 
         title={language === 'zh' ? "合作伙伴生态系统" : "Partner Ecosystem"} 
         subtitle={language === 'zh' ? "我们与世界领先的技术公司合作，为您提供集成的安全解决方案。" : "We collaborate with the world's leading technology companies to provide integrated security solutions."}
-        image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+        image="/upload/local_images/aHR0cHM6Ly9pbWF.jpg"
       />
       
       <div className="py-24">

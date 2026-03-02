@@ -1,0 +1,332 @@
+[
+  {
+    "url": "https://new.myibc.net/newsinfo/8704272.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联荣获蚂蚁集团旗下隐语开源社区“优秀生态合作伙伴”",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-08-27",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "在隐语开源社区三周年庆典上，奥联凭借自主研发的隐私计算服务平台...",
+        "tag": "p"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59300565.jpg",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59300565.jpg"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/8266261.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联推出可搜索加密技术SQE：密文查询性能提升百倍",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-04-13",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "4月10日至11日，2025中国移动云智算大会在苏州举行...",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831284.jpg",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831284.jpg"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/7966865.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联入选《2024中国网络安全行业全景册（第七版）》6项细分领域",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-01-14",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "近期， FreeBuf咨询正式发布《CCSIP（China Cyber Security Industry Panorama）2024中国网络安全行业全景册（第七版）》...",
+        "tag": "div"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/8678945.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "亮相海光生态大会，奥联发布海光系列商密一体机",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-08-18",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "8月15日，由国家先进计算产业创新中心下属产业协作平台——海光产业生态合作组织（简称“光合组织”）主办的“同源共智·芯业长青——2025光合组织领导人大会”在西宁召开。奥联在会上正式发布商密一体机系列产品，该系列基于海光CPU的TKM、SME、CCP、CSV等安全能力赋能商用密码，形成了一一系列密码硬件产品、构建了全密码算法系列的密码创新生态体系。全面支持商用密码算法及PQC密码算法，以高效、轻量、可靠的密码解决方案全方位满足GB/T39786《信息安全技术 信息系统密码应用基本要求》合规性要求。",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151370.png",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151370.png"
+      },
+      {
+        "type": "text",
+        "content": "数据库透明加密系统：基于多种透明加密技术，完全无需修改现有应用系统代码。依托海光CPU的底层密码能力，支持高性能SQE（可搜索加密），支持密文检索与运算，保障加密数据安全的同时实现高效查询。严格遵循国家密码管理局规范，全面满足等保、密评等合规性要求，易于部署，即装即用。",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151369.jpg",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151369.jpg"
+      },
+      {
+        "type": "text",
+        "content": "综合安全网关：提供IPSec、SSL及透明加密三种通道保护模式，灵活适配各类业务场景。 集成SM9/SM2等多种国密认证方式，实现高强度身份鉴别。该网关可无缝集成现有应用系统，快速满足密码应用改造需求，一站式解决身份认证与数据传输加密，有效支撑等保、密评等合规要求。",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151502.png",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59151502.png"
+      },
+      {
+        "type": "text",
+        "content": "云服务器密码机：基于海光5380双路硬件平台开发，采用SR-IOV硬件隔离、虚拟化技术，为云计算提供安全可靠、租户隔离的随机数生成、密钥生成与存储、密码计算等按需供给的密码资源服务，满足云计算场景下的身份认证、安全传输、数据加密等对密钥安全、密码算力的应用需求。",
+        "tag": "div"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/8266236.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联出席第5期“贺兰山密话”商用密码应用与创新发展大讲堂",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-04-16",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "4月15日，由宁夏商密协会、宁夏医学会卫生信息学分会主办，深圳奥联信息安全技术有限公司等单位承办的第5期“贺兰山密话”商用密码应用与创新发展大讲堂在宁夏银川举行。",
+        "tag": "section"
+      },
+      {
+        "type": "text",
+        "content": "本期大讲堂以“商用密码护航医疗卫生健康数智化高质量发展”为主题，面向医疗卫生行业，邀请了权威专家解读密码技术最新应用成果，并围绕互联网医院、公卫服务、医疗数据等核心场景，剖析商用密码实践路径，推动密码技术与医疗业务深度融合发展。",
+        "tag": "section"
+      },
+      {
+        "type": "text",
+        "content": "奥联副总裁蔡先勇发表《商用密码在医疗卫生领域的应用交流》主题演讲。基于高性能可搜索加密技术、无介质的高安全身份认证技术、B/S应用认证与源数据保护技术、高性能+高可靠+分布式大数据敏感数据加密技术，构建了业务系统免改造、高性能、高可用的改造方案。",
+        "tag": "section"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/8162463.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "新品发布 | Harmony OS NEXT商用密码中间件软件密码模块",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-03-19",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "3月18日，奥联发布Harmony OS NEXT商用密码中间件软件密码模块，支持鸿蒙系统（Harmony OS NEXT），现已发布商用版本。模块支持多种国密、国际算法，包括SM2、SM3、SM4、SM9、ECS等商用密码算法。",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "(1)接口丰富：提供对文件等用户数据的加解密、签名验签接口；(2)易于部署：无需改变现有业务系统；(3)功能完备：提供身份认证、数字签名、数据加密等功能。",
+        "tag": "span"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/7966846.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联入选第二期《数字安全护航技术能力全景图》19项细分领域",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-01-09",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "近日，中国信息通信研究院“数字安全护航计划”正式发布第二期《数字安全护航技术能力全景图》，奥联入选堡垒机、信创堡垒机、车联网安全、大数据保护等19项细分领域。",
+        "tag": "div"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/7966772.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "奥联获西电网络与信息安全学院颁发“协同育人与创新杰出伙伴”",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2024-12-29",
+        "tag": "div"
+      },
+      {
+        "type": "text",
+        "content": "12月27日，“一流网络安全学院高质量发展大会”在西安电子科技大学举行。奥联获颁“协同育人与创新杰出伙伴”。奥联与西安电子科技大学合作成立了“西电密码研究中心”和“密码技术及应用创新实验室”。",
+        "tag": "div"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/8674724.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "“一带一路”科技合作分享会，程朝辉博士受邀建言数据安全出海",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2025-08-15",
+        "tag": "span"
+      },
+      {
+        "type": "text",
+        "content": "8月14日，聚焦“一带一路”科技外交与国际合作的“古今交响·一见钟秦”驻华外交官科技创新合作（西安）分享会在西安隆重举行。本次活动由陕西省人民政府新闻办公室、中央广播电视总台国际在线联合主办，由陕西长安先导产业创新中心有限公司（以下简称“长安先导”）承办...",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59125669.png",
+        "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/59125669.png"
+      },
+      {
+        "type": "text",
+        "content": "程朝辉博士作为该环节发言人之一，就中小企业数据安全出海议题作专题演讲，剖析企业出海的三大挑战：政策合规挑战、信任建立挑战、技术适配挑战...",
+        "tag": "section"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/6864013.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "程朝辉博士：基于SM2的隐式证书机制及其在车联网的应用",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2023-11-22",
+        "tag": "span"
+      },
+      {
+        "type": "text",
+        "content": "11月16日，以“密码上车，安全随行”为主题的2023商用密码与智能网联汽车融合创新论坛在深圳成功举办...",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/47384648.jpg",
+        "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/47384648.jpg"
+      },
+      {
+        "type": "text",
+        "content": "基于SM2的隐式证书机制ECS是奥联自主研发的创新型轻量公钥机制。机制无需显式证书来管理公钥，支持数字签名的强不可抵赖性，可基于现有的SM2算法软硬件快速部署应用...",
+        "tag": "span"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/6864002.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "程朝辉博士：物联网安全与标识密码融合技术研究",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2023-10-23",
+        "tag": "span"
+      },
+      {
+        "type": "text",
+        "content": "10月22日，由国家密码管理局指导，江苏省国家密码管理局、无锡市人民政府主办的2023物联网密码应用峰会在江苏无锡召开...",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/47385346.jpg",
+        "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/47385346.jpg"
+      },
+      {
+        "type": "text",
+        "content": "奥联首席科学家程朝辉博士发表《物联网安全与标识密码融合技术研究》主题演讲。他表示，标识密码技术使用实体标识作为公钥，可有效降低密钥管理的复杂性...",
+        "tag": "span"
+      }
+    ]
+  },
+  {
+    "url": "https://new.myibc.net/newsinfo/2764783.html",
+    "chunks": [
+      {
+        "type": "text",
+        "content": "一图了解国家标准《信息安全技术 SM9密码算法使用规范》",
+        "tag": "h1"
+      },
+      {
+        "type": "text",
+        "content": "创建时间：2022-05-10",
+        "tag": "span"
+      },
+      {
+        "type": "text",
+        "content": "根据2022年4月15日国家市场监督管理总局、国家标准化管理委员会发布的中华人民共和国国家标准公告（2022年第6号），全国信息安全标准化技术委员会归口的国家标准GB/T 41389-2022《信息安全技术 SM9密码算法使用规范》正式发布...",
+        "tag": "div"
+      },
+      {
+        "type": "image",
+        "content": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333714.jpeg",
+        "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333714.jpeg"
+      }
+    ]
+  }
+]

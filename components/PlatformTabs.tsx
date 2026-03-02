@@ -11,19 +11,19 @@ export const PlatformTabs: React.FC = () => {
       id: 'strata',
       icon: Shield,
       ...t('tabs.strata'),
-      image: "https://images.unsplash.com/photo-1558494949-ef2bb6ffaebd?q=80&w=2070&auto=format&fit=crop",
+      image: "/upload/local_images/aHR0cHM6Ly9pbWF.jpg",
     },
     {
       id: 'prisma',
       icon: Cloud,
       ...t('tabs.prisma'),
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+      image: "/upload/local_images/aHR0cHM6Ly9pbWF.jpg",
     },
     {
       id: 'cortex',
       icon: Activity,
       ...t('tabs.cortex'),
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+      image: "/upload/local_images/aHR0cHM6Ly9pbWF.jpg",
     }
   ];
 

@@ -1,184 +1,270 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { 
-  Scan, ShieldAlert, Lock, Network, 
-  ArrowRight, Check, PlayCircle,
-  ChevronRight
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Shield, Building2, Radio, Factory, Mountain, Briefcase, ArrowRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { solutionCategories, solutionIntro } from '../../data/solutions';
+
+const categoryIcons: Record<string, React.ElementType> = {
+  gov: Building2,
+  operator: Radio,
+  enterprise: Factory,
+  resources: Mountain,
+  other: Briefcase,
+};
 
 export const SolutionCenter: React.FC = () => {
   const { language } = useLanguage();
-  const [activeSection, setActiveSection] = useState('overview');
-  const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
-  
-  const features = [
-    {
-      id: 'visibility',
-      icon: Scan,
-      title: language === 'zh' ? "可视性" : "Visibility",
-      heading: language === 'zh' ? "发现任何地方的每一个设备。" : "See every device, everywhere.",
-      description: language === 'zh' 
-        ? "传统的签名扫描无法识别现代 IoT 设备。OLYM 使用获得专利的机器学习技术，通过分析网络流量行为，准确识别从未见过的设备——无需部署传感器或代理。"
-        : "Legacy signature scanning fails on modern IoT. OLYM uses patented machine learning to identify never-before-seen devices by analyzing network traffic behaviors—without sensors or agents.",
-      points: language === 'zh' 
-        ? ["97% 的设备识别准确率", "自动分类设备类型", "实时风险评分"] 
-        : ["97% device identification accuracy", "Auto-classify device type", "Real-time risk scoring"],
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 'prevention',
-      icon: ShieldAlert,
-      title: language === 'zh' ? "威胁防御" : "Threat Prevention",
-      heading: language === 'zh' ? "阻止已知和未知威胁。" : "Stop known and unknown threats.",
-      description: language === 'zh' 
-        ? "IoT 设备通常是网络中最薄弱的环节。我们的内置入侵防御系统 (IPS) 使用针对 IoT 优化的威胁情报，在网络层即时阻断漏洞利用、恶意软件和命令与控制 (C2) 流量。"
-        : "IoT devices are often the weakest link. Our built-in IPS uses IoT-optimized threat intelligence to instantly block exploits, malware, and C2 traffic at the network layer.",
-      points: language === 'zh' 
-        ? ["阻断 IoT 特定漏洞利用", "防止横向移动", "基于 ML 的 C2 阻断"] 
-        : ["Block IoT-specific exploits", "Prevent lateral movement", "ML-based C2 blocking"],
-      image: "https://images.unsplash.com/photo-1563206767-5b1d972d9323?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 'integration',
-      icon: Lock,
-      title: language === 'zh' ? "零信任策略" : "Zero Trust Policy",
-      heading: language === 'zh' ? "一键实施最小权限。" : "Enforce least privilege with one click.",
-      description: language === 'zh' 
-        ? "无需手动编写规则。OLYM 根据设备的行为基线，自动建议并实施细粒度的安全策略。确保监控摄像头只能访问视频服务器，而不是财务数据库。"
-        : "Stop writing manual rules. OLYM automatically recommends and enforces granular policies based on device behavior baselines. Ensure cameras only talk to video servers, not finance databases.",
-      points: language === 'zh' 
-        ? ["自动策略建议", "基于上下文的分段", "原生防火墙集成"] 
-        : ["Automated policy recommendations", "Context-based segmentation", "Native firewall integration"],
-      image: "https://images.unsplash.com/photo-1558494949-ef2bb6ffaebd?q=80&w=2070&auto=format&fit=crop"
-    }
-  ];
+  const [activeTab, setActiveTab] = useState(solutionCategories[0].id);
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const location = useLocation();
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam && sectionRefs.current[categoryParam]) {
+      setTimeout(() => {
+        scrollToCategory(categoryParam);
+      }, 100);
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam && sectionRefs.current[categoryParam]) {
+      scrollToCategory(categoryParam);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            if (entry.target.id) setActiveSection(entry.target.id);
+          if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+            const id = entry.target.getAttribute('data-category-id');
+            if (id) setActiveTab(id);
           }
         });
       },
-      { threshold: 0.1, rootMargin: "-100px 0px" } 
+      { threshold: 0.15, rootMargin: '-120px 0px -40% 0px' }
     );
-    document.querySelectorAll('.reveal-on-scroll, section[id]').forEach((el) => observer.observe(el));
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref as Element);
+    });
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const featureObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            if (!isNaN(index)) setActiveFeatureIndex(index);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    sectionRefs.current.forEach((ref) => { if (ref) featureObserver.observe(ref); });
-    return () => featureObserver.disconnect();
-  }, [features]);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({ top: element.offsetTop - 100, behavior: 'smooth' });
+  const scrollToCategory = (id: string) => {
+    setActiveTab(id);
+    const el = sectionRefs.current[id];
+    if (el) {
+      const yOffset = -130;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="bg-white font-sans">
-      <div className="relative bg-[#121212] text-white overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-32" id="overview">
-        <div className="absolute inset-0 z-0 opacity-40">
-           <img src="https://images.unsplash.com/photo-1558494949-ef2bb6ffaebd?q=80&w=2070&auto=format&fit=crop" alt="Abstract Network" className="w-full h-full object-cover" />
-           <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/50 to-transparent"></div>
-           <div className="absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/60 to-transparent"></div>
+    <div className="bg-[#0b0c10] font-sans text-gray-300 min-h-screen">
+      {/* ─── HERO BANNER ─── */}
+      <div className="relative overflow-hidden pt-32 pb-48 lg:pt-48 lg:pb-64 bg-[#0b0c10]">
+        {/* Background Image Container */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/upload/local_images/product_center_hero.png"
+            alt="Cybersecurity Solutions"
+            className="w-full h-full object-cover opacity-40 animate-ken-burns"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0b0c10] via-[#0b0c10]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-transparent to-transparent" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 reveal-on-scroll">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight">
-              {language === 'zh' ? "看不见，" : "You can't secure"} <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-                {language === 'zh' ? "就无法保护。" : "what you can't see."}
-              </span>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="max-w-3xl animate-fade-in-up">
+            <h4 className="text-ibc-brand text-sm font-bold tracking-[0.3em] uppercase mb-4">
+              {language === 'en' ? 'INDUSTRY SOLUTIONS' : '行业解决方案'}
+            </h4>
+            <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
+              {solutionIntro.title}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-2xl font-light">
-              {language === 'zh' ? "业界最全面的解决方案，利用机器学习自动发现并保护网络中的每一个设备。" : "The industry's most comprehensive solution to discover and secure every device."}
+            <p className="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed mb-10 font-light">
+              {solutionIntro.desc1} {solutionIntro.desc2}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-ibc-brand text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-green-600 transition-all flex items-center justify-center">
-                 {language === 'zh' ? "申请免费评估" : "Get Free Assessment"} <ArrowRight className="ml-2" size={20} />
-              </button>
+          </div>
+        </div>
+
+        {/* Irregular Diagonal Divider (Palo Alto Style) */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-30 transform translate-y-1">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="block w-full h-24 md:h-32 lg:h-48 fill-[#0f1115]">
+            <path d="M1200 120L0 120 0 120 1200 0z"></path>
+          </svg>
+        </div>
+      </div>
+
+      {/* ─── STICKY TAB NAV ─── */}
+      <div className="sticky top-0 z-40 bg-[#0f1115]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+            {solutionCategories.map((cat) => {
+              const Icon = categoryIcons[cat.id] || Shield;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => scrollToCategory(cat.id)}
+                  className={`flex items-center gap-2 whitespace-nowrap px-6 py-4 text-[15px] font-semibold border-b-[3px] transition-all duration-300 ${activeTab === cat.id
+                    ? 'text-ibc-brand border-ibc-brand bg-white/5'
+                    : 'text-gray-400 border-transparent hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                  <Icon size={18} strokeWidth={activeTab === cat.id ? 2.5 : 2} />
+                  {cat.title}
+                  <span className="text-xs opacity-60 ml-1">({cat.solutions.length})</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#0f1115]">
+        {/* ─── OVERVIEW SECTION ─── */}
+        <section className="py-24 border-b border-white/5 relative z-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-8 tracking-tight">
+                  {language === 'en' ? 'Comprehensive Security Architecture' : '综合密码安全体系'}
+                </h2>
+                <p className="text-lg text-gray-400 leading-relaxed mb-6 font-light">
+                  {solutionIntro.desc1}
+                </p>
+                <p className="text-lg text-gray-400 leading-relaxed mb-10 font-light">
+                  {solutionIntro.desc2}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {solutionCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => scrollToCategory(cat.id)}
+                      className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-gray-300 hover:text-white hover:border-ibc-brand/50 hover:bg-ibc-brand/10 transition-colors"
+                    >
+                      {cat.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Image Side */}
+              <div className="flex justify-center relative">
+                <div className="absolute inset-0 bg-ibc-brand/20 blur-[100px] rounded-full z-0" />
+                <img
+                  src={solutionIntro.pyramidImage}
+                  alt="Architecture"
+                  className="relative z-10 w-full max-w-md drop-shadow-2xl"
+                />
+              </div>
             </div>
           </div>
+        </section>
+
+        {/* ─── SOLUTION CATEGORIES ─── */}
+        <div className="pb-0">
+          {solutionCategories.map((cat, index) => {
+            const Icon = categoryIcons[cat.id] || Shield;
+
+            const bgColors = [
+              "bg-[#0b0c10]", // base dark
+              "bg-[#11131a]", // navy tint
+              "bg-[#0f1412]", // teal tint
+              "bg-[#151218]", // purple tint
+              "bg-[#161616]"  // graphite
+            ];
+            const sectionBg = bgColors[index % bgColors.length];
+
+            return (
+              <section
+                key={cat.id}
+                data-category-id={cat.id}
+                ref={(el) => { sectionRefs.current[cat.id] = el; }}
+                className={`py-24 border-t border-white/5 scroll-mt-24 ${sectionBg}`}
+              >
+                <div className="max-w-7xl mx-auto px-6">
+                  {/* Category Header */}
+                  <div className="flex items-center gap-6 mb-16">
+                    <div className="w-16 h-16 rounded-2xl bg-ibc-brand/10 border border-ibc-brand/20 flex flex-shrink-0 items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                      <Icon size={32} className="text-ibc-brand" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
+                        {cat.title}
+                      </h2>
+                      <p className="text-gray-400 text-[15px] font-medium uppercase tracking-wider">
+                        {language === 'en' ? 'Solutions Count' : '包含'} : {cat.solutions.length}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Solutions Grid */}
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                    {cat.solutions.map((sol) => (
+                      <Link
+                        key={sol.id}
+                        to={`/solutions/detail?name=${encodeURIComponent(sol.title)}`}
+                        className="group flex flex-col bg-[#15181e] border border-white/5 rounded-2xl p-8 transition-all duration-300 hover:bg-[#1a1e25] hover:border-ibc-brand/30 hover:shadow-2xl hover:shadow-ibc-brand/10 overflow-hidden relative min-h-[300px]"
+                      >
+                        <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 cursor-pointer">
+                          <ArrowRight className="text-ibc-brand" size={24} />
+                        </div>
+
+                        <div className="flex items-center gap-3 mb-6 z-10">
+                          <span className="text-xs font-bold px-3 py-1.5 bg-gray-800 text-gray-300 rounded-full border border-gray-700 font-mono">
+                            NO.{sol.number}
+                          </span>
+                        </div>
+
+                        <h3 className="text-2xl font-bold text-white mb-4 leading-snug group-hover:text-ibc-brand transition-colors z-10 pr-6">
+                          {sol.title}
+                        </h3>
+
+                        <p className="text-[15px] text-gray-400 leading-relaxed mb-8 flex-grow z-10">
+                          {sol.summary}
+                        </p>
+
+                        <div className="mt-auto border-t border-white/10 pt-6 flex items-center text-[14px] font-semibold text-white/50 group-hover:text-white transition-colors z-10">
+                          {language === 'en' ? 'Explore Detail' : '查看方案详情'}
+                        </div>
+
+                        {/* Hover Gradient Glow */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-ibc-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            );
+          })}
         </div>
       </div>
 
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm hidden md:block">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-             <div className="font-bold text-xl text-gray-900 tracking-tight">OLYM IoT Security</div>
-             <div className="flex space-x-8">
-               {[
-                 { id: 'overview', label: language === 'zh' ? '概览' : 'Overview' },
-                 { id: 'visibility', label: language === 'zh' ? '可视性' : 'Visibility' },
-                 { id: 'prevention', label: language === 'zh' ? '防御' : 'Prevention' },
-                 { id: 'integration', label: language === 'zh' ? '零信任' : 'Zero Trust' }
-               ].map(item => (
-                 <button key={item.id} onClick={() => scrollToSection(item.id)} className={`text-sm font-bold border-b-2 transition-all py-5 ${activeSection === item.id ? 'text-ibc-brand border-ibc-brand' : 'text-gray-500 border-transparent hover:text-gray-900'}`}>{item.label}</button>
-               ))}
-             </div>
-             <button className="text-sm font-bold text-ibc-brand hover:underline">{language === 'zh' ? "下载数据表" : "Download Datasheet"}</button>
+      {/* ─── CTA ─── */}
+      <section className="bg-gradient-to-t from-[#0b0c10] to-[#0f1115] text-white py-32 relative border-t border-white/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,100,0.03)_0%,transparent_100%)] pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+            {language === 'en' ? 'Need a Custom Security Solution?' : '需要定制化的密码安全解决方案？'}
+          </h2>
+          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+            {language === 'en' ? 'We have rich industry experience and can tailor end-to-end security solutions for your business.' : '基于 SM9 与全面国密算法支持，量身定制端到端的高级安全体系。'}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center bg-ibc-brand text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_40px_rgba(0,200,83,0.5)] hover:-translate-y-1"
+            >
+              {language === 'en' ? 'Contact Us' : '联系我们'}
+              <ArrowRight className="ml-3" size={20} />
+            </Link>
           </div>
         </div>
-      </div>
-
-      <div className="relative">
-        <div className="hidden lg:block absolute top-0 right-0 w-1/2 h-screen sticky-viewport-height sticky z-0 bg-gray-100 border-l border-gray-200 overflow-hidden">
-           {features.map((feature, index) => (
-             <div key={feature.id} className={`absolute inset-0 transition-all duration-1000 ease-in-out flex items-center justify-center p-12 ${activeFeatureIndex === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                <div className="relative z-10 w-full max-w-xl">
-                   <img src={feature.image} alt={feature.title} className="relative w-full rounded-xl shadow-2xl border border-white/50" />
-                </div>
-             </div>
-           ))}
-        </div>
-
-        <div className="relative z-10 w-full lg:w-1/2">
-          {features.map((feature, index) => (
-            <section id={feature.id} key={feature.id} ref={(el) => { sectionRefs.current[index] = el; }} data-index={index} className="min-h-screen flex flex-col justify-center px-6 py-24 md:px-12 lg:px-24 bg-white lg:bg-transparent border-b lg:border-none border-gray-100">
-               <div className="reveal-on-scroll">
-                  <div className="inline-flex items-center text-ibc-brand font-bold mb-6 uppercase tracking-widest text-sm bg-ibc-brand/5 px-3 py-1 rounded-full">
-                    <feature.icon className="mr-2" size={18} />
-                    {feature.title}
-                  </div>
-                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">{feature.heading}</h2>
-                  <p className="text-xl text-gray-600 mb-10 leading-relaxed font-light">{feature.description}</p>
-                  <ul className="space-y-5 mb-10">
-                    {feature.points.map((item, i) => (
-                      <li key={i} className="flex items-start">
-                         <div className="mt-1 mr-4 w-6 h-6 rounded-full bg-ibc-brand flex items-center justify-center text-white flex-shrink-0 shadow-sm"><Check size={14} strokeWidth={4} /></div>
-                         <span className="text-gray-800 font-semibold text-lg">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to={`/solutions/${feature.id}-detail`} className="text-ibc-brand font-bold flex items-center text-lg hover:text-green-700 transition-colors group">
-                     {language === 'zh' ? "深入了解" : "Learn more about"} {feature.title} 
-                     <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                  </Link>
-               </div>
-            </section>
-          ))}
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

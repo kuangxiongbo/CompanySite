@@ -30,7 +30,7 @@ export const PlatformPage: React.FC = () => {
       desc: language === 'zh' 
         ? "你无法保护你看不见的东西。OLYM 能够发现并保护您网络中的每一个设备——包括托管设备、非托管设备以及物联网 (IoT) 设备。无需额外部署传感器。" 
         : "You can't secure what you can't see. OLYM discovers and secures every device on your network—managed, unmanaged, and IoT. No extra sensors required.",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+      image: "/upload/local_images/aHR0cHM6Ly9pbWF.jpg",
       points: language === 'zh' ? ["97% 的设备可视性", "自动分类与风险评估", "基于行为的威胁检测"] : ["97% Device Visibility", "Automated Classification", "Behavior-based Detection"]
     },
     {
@@ -38,7 +38,7 @@ export const PlatformPage: React.FC = () => {
       desc: language === 'zh' 
         ? "传统的签名机制已经不够了。我们的内联深度学习引擎可以在零日威胁发生时即时阻断，为您提供比任何其他解决方案快 3 倍的防护速度。" 
         : "Signatures aren't enough anymore. Our inline deep learning engines stop zero-day threats instantly as they happen, protecting you 3x faster than any other solution.",
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop",
+      image: "/upload/local_images/aHR0cHM6Ly9pbWF.jpg",
       points: language === 'zh' ? ["实时恶意软件分析", "DNS 安全", "抗网络钓鱼"] : ["Real-time Malware Analysis", "DNS Security", "Anti-Phishing"]
     }
   ];
@@ -66,7 +66,7 @@ export const PlatformPage: React.FC = () => {
       <PageHero 
         title={language === 'zh' ? "智能设备安全" : "Intelligent Device Security"} 
         subtitle={language === 'zh' ? "业界唯一基于机器学习的全面设备可视性与保护平台。" : "The industry's only ML-powered platform for complete device visibility and protection."}
-        image="https://images.unsplash.com/photo-1563206767-5b1d972d9323?q=80&w=2070&auto=format&fit=crop"
+        image="/upload/local_images/aHR0cHM6Ly9pbWF.jpg"
       />
       
       {/* Sticky Subnav Simulation */}

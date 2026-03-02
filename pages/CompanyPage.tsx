@@ -11,7 +11,7 @@ export const CompanyPage: React.FC = () => {
       <PageHero 
         title={language === 'zh' ? "关于 OLYM" : "About OLYM"} 
         subtitle={language === 'zh' ? "我们的使命是保护数字时代的生活方式。我们致力于通过预防网络攻击，让每一天都更安全。" : "Our mission is to protect our way of life in the digital age by preventing successful cyberattacks."}
-        image="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
+        image="/upload/local_images/aHR0cHM6Ly9pbWF.jpg"
       />
       
       <div className="max-w-7xl mx-auto px-6 py-24">

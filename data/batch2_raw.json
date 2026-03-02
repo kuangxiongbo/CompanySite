@@ -1,0 +1,2494 @@
+[
+    {
+        "url": "https://new.myibc.net/newsinfo/2764681.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "在上一篇《公共安全视频监控系统-安全系列篇1：视频劫持和替换》中，带大家回顾了视频监控系统40年发展历史，公共安全视频监控系统的结构与元素，并重点对视频监控系统中面临的“劫持”和“替换”问题进行了讲解及梳理。本文将继续针对公共安全视频监控系统进行分析，剖析视频存储及使用环节的数据安全问题，提出有效的安全解决方案。"
+            },
+            {
+                "type": "text",
+                "content": "一、安全背景"
+            },
+            {
+                "type": "text",
+                "content": "全球经济的高速发展和城市化建设速度的加快，公共安全问题已经延伸到生产、生活、环境、技术和信息等社会各个领域。随着物联网技术和视频监控技术的发展，“平安城市”、“天网工程”和“雪亮工程”等一系列公共安全视频监控联网建设和共享的相关项目快速推进，中国已经建成世界上规模最大的视频监控网，摄像机总数超过2000万只。"
+            },
+            {
+                "type": "text",
+                "content": "与此同时，社会各行各业的视频监控系统也在加快建设，广泛应用于能源、电力、水利、教育、医疗、司法、金融、酒店等众多领域，尤其在后疫情时代，整个社会综合治理防控体系和应急响应系统的建设需求越来越强烈，而视频数据的应用是其中最重要的环节。"
+            },
+            {
+                "type": "text",
+                "content": "然而在视频监控系统中采集、传输、存储大量包含个人和单位的视频图像以及生物特征信息，甚至承载了许多单位机密的信息，视频泄漏导致的个人隐私泄漏、商业机密泄漏、不良社会影响等事件层出不穷。在对网络安全的法律和政策逐渐加强的情况下，如何有效保护这些个人信息和商业秘密不被泄露，成为当前一个非常重要的话题。"
+            },
+            {
+                "type": "text",
+                "content": "二、视频泄密事件频发"
+            },
+            {
+                "type": "text",
+                "content": "目前在大多数视频监控系统的运行和维护过程中，缺乏有效的安全管理措施，一般为非专职人员操作，容易导致信息外流，信息安全难以有效保证。视频信息在调阅的过程中，存在非授权的下载、外发、录屏、偷拍等安全风险。在自媒体时代，突发事件一旦经过恶意传播极易造成为网络爆点，为国家舆论压力、政府公信力及个人带来负面影响。"
+            },
+            {
+                "type": "text",
+                "content": "三、视频数据安全分析"
+            },
+            {
+                "type": "text",
+                "content": "视频监控数据经由前端摄像机采集和传输网络最终落盘以文件形式存储在NVR或存储服务器中，一般视频文件都以明文方式存储。本文将在试验环境中复现视频数据在存储、使用、分发环境的安全问题。"
+            },
+            {
+                "type": "text",
+                "content": "1. 视频数据安全分析对象"
+            },
+            {
+                "type": "text",
+                "content": "主要分析对象和场景：网络摄像机IPC+NVR+NAS存储方式。"
+            },
+            {
+                "type": "text",
+                "content": "本文将研究和分析视频数据经由NVR存储到NAS存储中的视频文件以及视频文件调用和使用过程中的安全问题，并尝试在实验环境中将安全问题可视化呈现出来。"
+            },
+            {
+                "type": "text",
+                "content": "在进行具体的安全实验分析前，试验团队先从理论上分析视频存储相关安全问题。前端网络摄像机采集的视频数据经由NVR存储到NAS的基本过程如下："
+            },
+            {
+                "type": "text",
+                "content": "网络摄像机采集的视频信号经过网络传输到NVR，未做安全处理的情况下视频码流是经过视频编码的明文数据；视频码流数据明文的存储到NAS存储中；"
+            },
+            {
+                "type": "text",
+                "content": "因存储在NAS的视频文件是明文存储的，NAS本身不具备权限管理功能，因此任何人都可以在未授权的情况下从NAS中导出视频文件并正常播放，造成视频监控信息的泄漏；同时也可以很容易地将存储在NAS的视频文件替换为修改后的视频文件，造成正常的视频监控信息被非法篡改；另外即使是通过正常途径导出的视频文件因无安全防护措施可被无限制播放和传播，存在敏感视频监控信息泄漏和被恶意传播的风险。"
+            },
+            {
+                "type": "text",
+                "content": "2. 视频数据安全分析环境"
+            },
+            {
+                "type": "text",
+                "content": "下文主要针对公共安全视频监控系统的视频存储、使用、分发安全进行分析，为了方便研究和分析安全问题，试验团队搭建了一个简化的公共安全视频监控系统试验环境。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332853.png"
+            },
+            {
+                "type": "text",
+                "content": "试验环境，网络拓扑示意如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332774.png"
+            },
+            {
+                "type": "text",
+                "content": "3. 视频数据安全分析"
+            },
+            {
+                "type": "text",
+                "content": "在上一篇《公共安全视频监控系统-安全系列篇1：视频劫持和替换》文章中，详细分析了网络摄像机到视频监控平台（或NVR）传输网络中的视频劫持和篡改安全风险问题。"
+            },
+            {
+                "type": "text",
+                "content": "本文将重点关注视频存储相关：视频监控，视频存储，视频文件使用等环节的安全风险问题。"
+            },
+            {
+                "type": "text",
+                "content": "1) 视频监控环节"
+            },
+            {
+                "type": "text",
+                "content": "在试验环境中，使用监控机连接NVR实现视频监控。主要包含两种路径访问NVR进行视频监控，其一，使用浏览器访问NVR管理地址；其二，使用视频流播放器如VLC通过RTSP协议来访问监控视频。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332775.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332776.png"
+            },
+            {
+                "type": "text",
+                "content": "2) 视频存储环节"
+            },
+            {
+                "type": "text",
+                "content": "在模拟试验环境中，奥联试验团队通过使用NAS做NVR视频文件的存储，可以很方便查看到NVR存储的视频文件内容和信息。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332777.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332778.png"
+            },
+            {
+                "type": "text",
+                "content": "未替换前视频回放，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332779.png"
+            },
+            {
+                "type": "text",
+                "content": "替换视频文件后回放，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332780.png"
+            },
+            {
+                "type": "text",
+                "content": "3) 视频使用环节"
+            },
+            {
+                "type": "text",
+                "content": "在试验环境中使用监控机访问NVR的Web管理页面，从管理页面导出监控视频文件。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332781.png"
+            },
+            {
+                "type": "text",
+                "content": "4. 视频数据安全问题总结"
+            },
+            {
+                "type": "text",
+                "content": "整体来看视频数据在存储、使用、分发环节存在的安全风险问题主要包括非授权访问监控视频数据、视频存储文件泄漏和篡改、视频文件非法传播、泄漏无法溯源等。"
+            },
+            {
+                "type": "text",
+                "content": "四、视频数据安全方案"
+            },
+            {
+                "type": "text",
+                "content": "上一章节奥联试验团队对视频存储及使用过程中的安全问题进行了详细的分析，接下来试验团队将针对这些安全问题逐一提出相应的解决方案，最后汇总成一个完整的视频数据安全解决方案。"
+            },
+            {
+                "type": "text",
+                "content": "1. 安全身份认证"
+            },
+            {
+                "type": "text",
+                "content": "奥联解决方案：在NVR前端串接视频加密网关设备，加密网关设备通过与密码基础设施交互实现用户身份认证的能力；同时给每个监控用户发放代表用户身份的UKEY，在监控用户访问NVR前先插入UKEY与视频加密网关进行身份认证，身份认证成功后才能进一步访问NVR，因视频加密网关串接在NVR之前，此身份认证过程不可被跳过。方案示意如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332782.png"
+            },
+            {
+                "type": "text",
+                "content": "2. 视频文件机密性、完整性保护"
+            },
+            {
+                "type": "text",
+                "content": "在不改变网络摄像机IPC，硬盘录像机NVR，视频存储NAS的情况下，提出了两种实现视频文件机密性、完整性保护的方案：其一，透明模式下在NVR前端串接视频加密网关；其二，透明模式下在NVR和NAS间串接视频加密网关。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332783.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332784.png"
+            },
+            {
+                "type": "text",
+                "content": "3. 视频泄漏防护和溯源"
+            },
+            {
+                "type": "text",
+                "content": "从NVR导出的加密视频文件，同时在视频文件中随机植入隐性水印用于视频溯源，在普通播放器上是无法正常播放，需要使用专用视频解密播放器配合UKEY中的策略解密密钥才能解密播放加密的视频文件。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332786.png"
+            },
+            {
+                "type": "text",
+                "content": "4. 整体解决方案"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332788.png"
+            },
+            {
+                "type": "text",
+                "content": "五、方案产品清单"
+            },
+            {
+                "type": "text",
+                "content": "1. 视频安全管理平台"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333250.png"
+            },
+            {
+                "type": "text",
+                "content": "2. 视频加密网关"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333252.png"
+            },
+            {
+                "type": "text",
+                "content": "3. 专用视频解密播放器"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333263.png"
+            },
+            {
+                "type": "text",
+                "content": "4. UKEY身份认证"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333300.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333314.png"
+            },
+            {
+                "type": "text",
+                "content": "5. 密码基础设施"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333347.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30333345.png"
+            },
+            {
+                "type": "text",
+                "content": "六、安全总结"
+            },
+            {
+                "type": "text",
+                "content": "本文主要带大家整体认识视频监控系统的视频数据在存储、使用、分发环境的安全问题，并在试验环境中真真实的给大家复现了相关的安全问题，同时针对具体的安全问题提出了具体有效的安全解决方案。"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/2764536.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "一、视频监控系统简史"
+            },
+            {
+                "type": "text",
+                "content": "1979年是中国视频监控公认的起点。经过短短40多年，视频监控系统经历了从模拟监控，数字监控，高清网络监控，到智能监控的发展。"
+            },
+            {
+                "type": "text",
+                "content": "模拟监控阶段（1979-1983）"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331785.png"
+            },
+            {
+                "type": "text",
+                "content": "数字监控阶段（1984-1996）"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331786.png"
+            },
+            {
+                "type": "text",
+                "content": "高清网络化监控阶段（1997-2008）"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331788.png"
+            },
+            {
+                "type": "text",
+                "content": "智能监控阶段（2009-至今）"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331789.png"
+            },
+            {
+                "type": "text",
+                "content": "二、公共安全视频监控系统结构和元素"
+            },
+            {
+                "type": "text",
+                "content": "公共安全视频监控系统以网络视频监控系统为基础，是一种通过网络进行视频流传输、存储的视频监控形式。公共安全视频监控系统主要组成：前端视频监控设备（网络高清摄像机IPC），传输网络（交换机，路由器等），后端视频监控系统（视频监控平台：信令媒体服务，存储，监控电视墙，解码器，操作终端等）组成，互联级联。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331790.png"
+            },
+            {
+                "type": "text",
+                "content": "三、公共安全视频监控系统安全分析"
+            },
+            {
+                "type": "text",
+                "content": "1. 准备工作"
+            },
+            {
+                "type": "text",
+                "content": "本文主要针对公共安全视频监控系统的安全进行分析，为了方便研究和分析安全问题，抽象和简化了公共安全视频监控系统。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331792.png"
+            },
+            {
+                "type": "text",
+                "content": "2. 试验环境搭建"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331838.png"
+            },
+            {
+                "type": "text",
+                "content": "试验环境，网络拓扑如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331793.png"
+            },
+            {
+                "type": "text",
+                "content": "2）视频监控系统配置"
+            },
+            {
+                "type": "text",
+                "content": "网络摄像机配置："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331795.png"
+            },
+            {
+                "type": "text",
+                "content": "视频监控系统配置："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331796.png"
+            },
+            {
+                "type": "text",
+                "content": "3. 视频监控协议分析"
+            },
+            {
+                "type": "text",
+                "content": "视频监控基于TCP/IP协议栈，包括：会话通道和流媒体通道。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30331797.png"
+            },
+            {
+                "type": "text",
+                "content": "2) 流媒体通道协议分析"
+            },
+            {
+                "type": "text",
+                "content": "接入GB/T 28181视频平台的摄像机IPC需符合下图所示数据封装要求。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332101.png"
+            },
+            {
+                "type": "text",
+                "content": "RTP Payload 中承载的即为 PS 数据，起始的 00 00 01 ba 代表 PS 包的开始。如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332102.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332103.png"
+            },
+            {
+                "type": "text",
+                "content": "接下来遇到了 00 00 01 bb，这时来到了 PS System Header 部分。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332104.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332105.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332106.png"
+            },
+            {
+                "type": "text",
+                "content": "接下来是Program Stream Map(PSM)节目映射流。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332107.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332108.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332109.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332110.png"
+            },
+            {
+                "type": "text",
+                "content": "4. 视频监控安全分析-劫持分析"
+            },
+            {
+                "type": "text",
+                "content": "通过本地的视频流播放器（如VLC），播放本地GB/T 28181视频监控画面。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332255.png"
+            },
+            {
+                "type": "text",
+                "content": "原有视频监控平台可正常播放视频监控画面（左），安全分析设备也可以实时正常播放视频监控画面（右）。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332256.png"
+            },
+            {
+                "type": "text",
+                "content": "5. 视频监控安全分析-替换分析"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332259.png"
+            },
+            {
+                "type": "text",
+                "content": "原有视频监控平台视频监控画面被替换（左），安全分析设备可以实时正常播放原视频监控画面（右）。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332260.png"
+            },
+            {
+                "type": "text",
+                "content": "四、公共安全视频监控系统安全演示工具箱"
+            },
+            {
+                "type": "text",
+                "content": "1. 视频安全演示箱"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332261.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332355.png"
+            },
+            {
+                "type": "text",
+                "content": "2. 组件接线和原理说明"
+            },
+            {
+                "type": "text",
+                "content": "在不安全模式下，网络摄像机与TPLink交换机直连，视频监控平台与TPLink直连。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332262.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332263.png"
+            },
+            {
+                "type": "text",
+                "content": "在安全模式下，网络摄像机先与奥联视频安全交换机连接，通过奥联视频安全交换机再与TPLink交换机连接。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332264.png"
+            },
+            {
+                "type": "text",
+                "content": "五、安全解决方案"
+            },
+            {
+                "type": "text",
+                "content": "1）传统视频监控拓扑"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332265.png"
+            },
+            {
+                "type": "text",
+                "content": "2）安全加密后的视频监控拓扑"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332266.png"
+            },
+            {
+                "type": "text",
+                "content": "3）奥联安全产品"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332267.png"
+            },
+            {
+                "type": "text",
+                "content": "视频安全接入终端："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332268.png"
+            },
+            {
+                "type": "text",
+                "content": "视频加密网关："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/30332269.png"
+            },
+            {
+                "type": "text",
+                "content": "六、安全总结"
+            },
+            {
+                "type": "text",
+                "content": "本文主要带大家回顾40年来视频监控系统发展历史，同时引出公共安全视频监控系统的结构和元素，在此基础上重点针对视频监控系统中面临的“劫持”和“替换”问题进行了详细分析。"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/2423752.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "摘要"
+            },
+            {
+                "type": "text",
+                "content": "随着政府职能的转变和信息技术的飞速发展，政府办公人员日常处理的信息量也日益剧增，对办公的即时性、便捷性要求也越来越高，移动政务办公已经成为一种趋势。然而移动政务办公在给工作带来极大便利的同时，也面临着巨大的安全挑战，特别是在“互联网+”和大数据背景下，数据泄露事件频发，移动安全问题已成为制约移动政务办公发展的关键瓶颈。"
+            },
+            {
+                "type": "text",
+                "content": "一、安全案例"
+            },
+            {
+                "type": "text",
+                "content": "2021年1月，境外黑客组织攻击并窃取了某地政务办公系统中数万份内部文件，并在暗网出售。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/28435344.png"
+            },
+            {
+                "type": "text",
+                "content": "奥联基于国产密码技术，针对移动政务办公安全需求，自主研发了安全移动政务办公平台，从终端安全、链路安全、数据安全、应用安全等维度构建了全方位的安全防护体系，为移动政务办公提供安全可控的运行环境。"
+            },
+            {
+                "type": "text",
+                "content": "目前，奥联安全移动政务办公平台已在陕西、贵州、宁夏等多个政务部门中应用。"
+            },
+            {
+                "type": "text",
+                "content": "二、解决方案"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/28435351.png"
+            },
+            {
+                "type": "text",
+                "content": "平台功能及应用"
+            },
+            {
+                "type": "text",
+                "content": "可支持PC和智能终端访问，支持Android、iOS等主流操作系统。"
+            },
+            {
+                "type": "text",
+                "content": "网络拓扑图，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/28435342.png"
+            },
+            {
+                "type": "text",
+                "content": "平台构成"
+            },
+            {
+                "type": "text",
+                "content": "1. 移动安全管理平台（EMM）：提供移动设备管理（MDM）、移动应用管理（MAM）、移动内容管理（MCM）等功能。"
+            },
+            {
+                "type": "text",
+                "content": "2. 安全接入网关：提供SSL VPN服务，实现移动终端与内网业务系统的安全连接。"
+            },
+            {
+                "type": "text",
+                "content": "3. 统一身份认证系统：提供基于数字证书的强身份认证服务。"
+            },
+            {
+                "type": "text",
+                "content": "4. 安全即时通讯工具：提供加密聊天、群组、文件传输等功能。"
+            },
+            {
+                "type": "text",
+                "content": "5. 安全邮件客户端：提供邮件加密存储、加密传输等功能。"
+            },
+            {
+                "type": "text",
+                "content": "6. 平台功能集成"
+            },
+            {
+                "type": "text",
+                "content": "支持集成各类政务业务应用，如OA、邮件、审批等。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/28435343.png"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1324122.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "2018年11月1日，GB35114-2017《公共安全视频监控联网信息安全技术要求 》正式实施，这是我国首个关于视频监控联网信息安全的强制性国家标准。"
+            },
+            {
+                "type": "text",
+                "content": "1.产业分析"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499553.jpg"
+            },
+            {
+                "type": "text",
+                "content": "Verkada摄像头下的特斯拉工厂。"
+            },
+            {
+                "type": "text",
+                "content": "2.安全需求"
+            },
+            {
+                "type": "text",
+                "content": "视频监控系统面临着身份假冒、视频泄露、视频篡改等安全威胁，急需建立完善的安全防护体系。"
+            },
+            {
+                "type": "text",
+                "content": "3.解决方案"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499555.png"
+            },
+            {
+                "type": "text",
+                "content": "视频监控安全产品体系"
+            },
+            {
+                "type": "text",
+                "content": "视频安全演示工具箱，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499556.png"
+            },
+            {
+                "type": "text",
+                "content": "视频安全检测工具箱，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499558.png"
+            },
+            {
+                "type": "text",
+                "content": "视频安全接入终端，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499562.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499559.png"
+            },
+            {
+                "type": "text",
+                "content": "2口设备+5口设备"
+            },
+            {
+                "type": "text",
+                "content": "视频安全加密网关，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499563.png"
+            },
+            {
+                "type": "text",
+                "content": "视频安全管理平台，如下图所示："
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499567.png"
+            },
+            {
+                "type": "text",
+                "content": "产品认证"
+            },
+            {
+                "type": "text",
+                "content": "奥联视频安全产品已通过公安部安全与警用电子产品质量检测中心检测。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499568.png"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/26499554.png"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/8266294.html",
+        "chunks": [
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831365.png"
+            },
+            {
+                "type": "text",
+                "content": "2025年1月13日，《公共安全视频图像信息系统管理条例》公布，进一步规范公共安全视频系统管理。"
+            },
+            {
+                "type": "text",
+                "content": "一、《条例》安全要求"
+            },
+            {
+                "type": "text",
+                "content": "《条例》不仅明确了视频图像信息系统的建设、使用、管理要求，还特别强调了信息安全保护。"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831402.png"
+            },
+            {
+                "type": "text",
+                "content": "处罚措施规定"
+            },
+            {
+                "type": "text",
+                "content": "对于违反《条例》规定的行为，将依法给予处罚。"
+            },
+            {
+                "type": "text",
+                "content": "奥联公共安全视频监控联网密码应用方案"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831395.png"
+            },
+            {
+                "type": "text",
+                "content": "方案拓扑图"
+            },
+            {
+                "type": "text",
+                "content": "安全场景1：前端设备接入身份认证"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831396.png"
+            },
+            {
+                "type": "text",
+                "content": "安全场景2：视频数据传输加密"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831397.png"
+            },
+            {
+                "type": "text",
+                "content": "安全场景3：存储数据加密保护"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831398.png"
+            },
+            {
+                "type": "text",
+                "content": "安全场景4：视频防篡改保护"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831399.png"
+            },
+            {
+                "type": "text",
+                "content": "安全场景5：访问控制与权限管理"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831400.png"
+            },
+            {
+                "type": "text",
+                "content": "安全场景6：安全审计与追溯"
+            },
+            {
+                "type": "image",
+                "src": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/56831401.png"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/7505058.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "附全文 | 《商用密码管理条例》正式发布，自2023年7月1日起施行",
+                "tag": "h1"
+            },
+            {
+                "type": "text",
+                "content": "创建时间：",
+                "tag": "span"
+            },
+            {
+                "type": "text",
+                "content": "2023-05-04",
+                "tag": "span"
+            },
+            {
+                "type": "text",
+                "content": "浏览量：",
+                "tag": "span"
+            },
+            {
+                "type": "text",
+                "content": "443",
+                "tag": "span"
+            },
+            {
+                "type": "text",
+                "content": "中华人民共和国国务院令",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第760号",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "《商用密码管理条例》已经2023年4月14日国务院第4次常务会议修订通过，现予公布，自2023年7月1日起施行。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "总理　　李强",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "2023年4月27日",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "商用密码管理条例",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（1999年10月7日中华人民共和国国务院令第273号发布　2023年4月27日中华人民共和国国务院令第760号修订）",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第一章　总　　则",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "为了规范商用密码应用和管理，鼓励和促进商用密码产业发展，保障网络与信息安全，维护国家安全和社会公共利益，保护公民、法人和其他组织的合法权益，根据《中华人民共和国密码法》等法律，制定本条例。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "在中华人民共和国境内的商用密码科研、生产、销售、服务、检测、认证、进出口、应用等活动及监督管理，适用本条例。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "本条例所称商用密码，是指采用特定变换的方法对不属于国家秘密的信息等进行加密保护、安全认证的技术、产品和服务。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "坚持中国共产党对商用密码工作的领导，贯彻落实总体国家安全观。国家密码管理部门负责管理全国的商用密码工作。县级以上地方各级密码管理部门负责管理本行政区域的商用密码工作。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "网信、商务、海关、市场监督管理等有关部门在各自职责范围内负责商用密码有关管理工作。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家加强商用密码人才培养，建立健全商用密码人才发展体制机制和人才评价制度，鼓励和支持密码相关学科和专业建设，规范商用密码社会化培训，促进商用密码人才交流。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "各级人民政府及其有关部门应当采取多种形式加强商用密码宣传教育，增强公民、法人和其他组织的密码安全意识。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码领域的学会、行业协会等社会组织依照法律、行政法规及其章程的规定，开展学术交流、政策研究、公共服务等活动，加强学术和行业自律，推动诚信建设，促进行业健康发展。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门应当加强对商用密码领域社会组织的指导 and 支持。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二章　科技创新与标准化",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家建立健全商用密码科学技术创新促进机制，支持商用密码科学技术自主创新，对作出突出贡献的组织 and 个人按照国家有关规定予以表彰 and 奖励。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家依法保护商用密码领域的知识产权。从事商用密码活动，应当增强知识产权意识，提高运用、保护 and 管理知识产权的能力。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家鼓励在外商投资过程中基于自愿原则 and 商业规则开展商用密码技术合作。行政机关及其工作人员不得利用行政手段强制转让商用密码技术。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家鼓励 and 支持商用密码科学技术成果转化 and 产业化应用，建立 and 完善商用密码科学技术成果信息汇交、发布 and 应用情况反馈机制。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家密码管理部门组织对法律、行政法规 and 国家有关规定要求使用商用密码进行保护的网络与信息系统所使用的密码算法、密码协议、密钥管理机制等商用密码技术进行审查鉴定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国务院标准化行政主管部门 and 国家密码管理部门依据各自职责，组织制定商用密码国家标准、行业标准，对商用密码团体标准的制定进行规范、引导 and 监督。国家密码管理部门依据职责，建立商用密码标准实施信息反馈 and 评估机制，对商用密码标准实施进行监督检查。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家推动参与商用密码国际标准化活动，参与制定商用密码国际标准，推进商用密码中国标准与国外标准之间的转化运用，鼓励企业、社会团体 and 教育、科研机构等参与商用密码国际标准化活动。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "其他领域的标准涉及商用密码的，应当与商用密码国家标准、行业标准保持协调。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "从事商用密码活动，应当符合有关法律、行政法规、商用密码强制性国家标准，以及自我声明公开标准的技术要求。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家鼓励在商用密码活动中采用商用密码推荐性国家标准、行业标准，提升商用密码的防护能力，维护用户的合法权益。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三章　检测认证",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家推进商用密码检测认证体系建设，鼓励在商用密码活动中自愿接受商用密码检测认证。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "从事商用密码产品检测、网络与信息系统商用密码应用安全性评估等商用密码检测活动，向社会出具具有证明作用的数据、结果的机构，应当经国家密码管理部门认定，依法取得商用密码检测机构资质。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "取得商用密码检测机构资质，应当符合下列条件：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）具有法人资格；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）具有与从事商用密码检测活动相适应的资金、场所、设备设施、专业人员 and 专业能力；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）具有保证商用密码检测活动有效运行的管理体系。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "申请商用密码检测机构资质，应当向国家密码管理部门提出书面申请，并提交符合本条例第十四条规定条件的材料。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家密码管理部门应当自受理申请之日起20个工作日内，对申请进行审查，并依法作出是否准予认定的决定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "需要对申请人进行技术评审的，技术评审所需时间不计算在本条规定的期限内。国家密码管理部门应当将所需时间书面告知申请人。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码检测机构应当按照法律、行政法规 and 商用密码检测技术规范、规则，在批准范围内独立、公正、科学、诚信地开展商用密码检测，对出具的检测数据、结果负责，并定期向国家密码管理部门报送检测实施情况。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "商用密码检测技术规范、规则由国家密码管理部门制定并公布。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国务院市场监督管理部门会同国家密码管理部门建立国家统一推行的商用密码认证制度，实行商用密码产品、服务、管理体系认证，制定并公布认证目录 and 技术规范、规则。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "从事商用密码认证活动的机构，应当依法取得商用密码认证机构资质。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "申请商用密码认证机构资质，应当向国务院市场监督管理部门提出书面申请。申请人除应当符合法律、行政法规 and 国家有关规定要求的认证机构基本条件外，还应当具有与从事商用密码认证活动相适应的检测、检查等技术能力。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国务院市场监督管理部门在审查商用密码认证机构资质申请时，应当征求国家密码管理部门的意见。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第十九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码认证机构应当按照法律、行政法规 and 商用密码认证技术规范、规则，在批准范围内独立、公正、科学、诚信地开展商用密码认证，对出具的认证结论负责。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "商用密码认证机构应当对其认证的商用密码产品、服务、管理体系实施有效的跟踪调查，以保证通过认证的商用密码产品、服务、管理体系持续符合认证要求。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "涉及国家安全、国计民生、社会公共利益的商用密码产品，应当依法列入网络关键设备 and 网络安全专用产品目录，由具备资格的商用密码检测、认证机构检测认证合格后，方可销售或者提供。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码服务使用网络关键设备 and 网络安全专用产品的，应当经商用密码认证机构对该商用密码服务认证合格。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四章　电子认证",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第二十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "采用商用密码技术提供电子认证服务，应当具有与使用密码相适应的场所、设备设施、专业人员、专业能力 and 管理体系，依法取得国家密码管理部门同意使用密码的证明文件。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "电子认证服务机构应当按照法律、行政法规 and 电子认证服务密码使用技术规范、规则，使用密码提供电子认证服务，保证其电子认证服务密码使用持续符合要求。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "电子认证服务密码使用技术规范、规则由国家密码管理部门制定并公布。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "采用商用密码技术从事电子政务电子认证服务的机构，应当经国家密码管理部门认定，依法取得电子政务电子认证服务机构资质。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "取得电子政务电子认证服务机构资质，应当符合下列条件：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）具有企业法人或者事业单位法人资格；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）具有与从事电子政务电子认证服务活动及其使用密码相适应的资金、场所、设备设施 and 专业人员；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）具有为政务活动提供长期电子政务电子认证服务的能力；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（四）具有保证电子政务电子认证服务活动及其使用密码安全运行的管理体系。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "申请电子政务电子认证服务机构资质，应当向国家密码管理部门提出书面申请，并提交符合本条例第二十五条规定条件的材料。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国家密码管理部门应当自受理申请之日起20个工作日内，对申请进行审查，并依法作出是否准予认定的决定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "需要对申请人进行技术评审的，技术评审所需时间不计算在本条规定的期限内内。国家密码管理部门应当将所需时间书面告知申请人。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "外商投资电子政务电子认证服务，影响或者可能影响国家安全的，应当依法进行外商投资安全审查。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "电子政务电子认证服务机构应当按照法律、行政法规 and 电子政务电子认证服务技术规范、规则，在批准范围内提供电子政务电子认证服务，并定期向主要办事机构所在地省、自治区、直辖市密码管理部门报送服务实施情况。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "电子政务电子认证服务技术规范、规则由国家密码管理部门制定并公布。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第二十九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家建立统一的电子认证信任机制。国家密码管理部门负责电子认证信任源的规划 and 管理，会同有关部门推动电子认证服务互信互认。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门会同有关部门负责政务活动中使用电子签名、数据电文的管理。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "政务活动中电子签名、电子印章、电子证照等涉及的电子认证服务，应当由依法设立的电子政务电子认证服务机构提供。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五章　进出口",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第三十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "涉及国家安全、社会公共利益且具有加密保护功能的商用密码，列入商用密码进口许可清单，实施进口许可。涉及国家安全、社会公共利益或者中国承担国际义务的商用密码，列入商用密码出口管制清单，实施出口管制。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "商用密码进口许可清单 and 商用密码出口管制清单由国务院商务主管部门会同国家密码管理部门 and 海关总署制定并公布。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "大众消费类产品所采用的商用密码不实行进口许可 and 出口管制制度。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "进口商用密码进口许可清单中的商用密码或者出口商用密码出口管制清单中的商用密码，应当向国务院商务主管部门申请领取进出口许可证。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "商用密码的过境、转运、通运、再出口，在境外与综合保税区等海关特殊监管区域之间进出，或者在境外与出口监管仓库、保税物流中心等保税监管场所之间进出的，适用前款规定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "进口商用密码进口许可清单中的商用密码或者出口商用密码出口管制清单中的商用密码时，应当向海关交验进出口许可证，并按照国家有关规定办理报关手续。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "进出口经营者未向海关交验进出口许可证，海关有证据表明进出口产品可能属于商用密码进口许可清单或者出口管制清单范围的，应当向进出口经营者提出质疑；海关可以向国务院商务主管部门提出组织鉴别，并根据国务院商务主管部门会同国家密码管理部门作出的鉴别结论依法处置。在鉴别或者质疑期间，海关对进出口产品不予放行。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "申请商用密码进出口许可，应当向国务院商务主管部门提出书面申请，并提交下列材料：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）申请人的法定代表人、主要经营管理人以及经办人的身份证明；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）合同或者协议的副本；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）商用密码的技术说明；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（四）最终用户 and 最终用途证明；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（五）国务院商务主管部门规定提交的其他文件。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "国务院商务主管部门应当自受理申请之日起45个工作日内，会同国家密码管理部门对申请进行审查，并依法作出是否准予许可的决定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "对国家安全、社会公共利益或者外交政策有重大影响的商用密码出口，由国务院商务主管部门会同国家密码管理部门等有关部门报国务院批准。报国务院批准的，不受前款规定时限的限制。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六章　应用促进",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第三十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家鼓励公民、法人 and 其他组织依法使用商用密码保护网络与信息安全，鼓励使用经检测认证合格的商用密码。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "任何组织或者个人不得窃取他人加密保护的信息或者非法侵入他人的商用密码保障系统，不得利用商用密码从事危害国家安全、社会公共利益、他人合法权益等违法犯罪活动。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家支持网络产品 and 服务使用商用密码提升安全性，支持并规范商用密码在信息领域新技术、新业态、新模式中的应用。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家建立商用密码应用促进协调机制，加强对商用密码应用的统筹指导。国家机关 and 涉及商用密码工作的单位在其职责范围内负责本机关、本单位或者本系统的商用密码应用 and 安全保障工作。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门会同有关部门加强商用密码应用信息收集、风险评估、信息通报 and 重大事项会商，并加强与网络安全监测预警 and 信息通报的衔接。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "法律、行政法规 and 国家有关规定要求使用商用密码进行保护的关键信息基础设施，其运营者应当使用商用密码进行保护，制定商用密码应用方案，配备必要的资金 and 专业人员，同步规划、同步建设、同步运行商用密码保障系统，自行或者委托商用密码检测机构开展商用密码应用安全性评估。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "前款所列关键信息基础设施通过商用密码应用安全性评估方可投入运行，运行后每年至少进行一次评估，评估情况按照国家有关规定报送国家密码管理部门或者关键信息基础设施所在地省、自治区、直辖市密码管理部门备案。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第三十九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "法律、行政法规 and 国家有关规定要求使用商用密码进行保护的关键信息基础设施，使用的商用密码产品、服务应当经检测认证合格，使用的密码算法、密码协议、密钥管理机制等商用密码技术应当通过国家密码管理部门审查鉴定。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "关键信息基础设施的运营者采购涉及商用密码的网络产品 and 服务，可能影响国家安全的，应当依法通过国家网信部门会同国家密码管理部门等有关部门组织的国家安全审查。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "网络运营者应当按照国家网络安全等级保护制度要求，使用商用密码保护网络安全。国家密码管理部门根据网络的安全保护等级，确定商用密码的使用、管理 and 应用安全性评估要求，制定网络安全等级保护密码标准规范。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码应用安全性评估、关键信息基础设施安全检测评估、网络安全等级测评应当加强衔接，避免重复评估、测评。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第七章　监督管理",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第四十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门依法组织对商用密码活动进行监督检查，对国家机关 and 涉及商用密码工作的单位的商用密码相关工作进行指导 and 监督。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门建立商用密码监督管理协作机制，加强商用密码监督、检查、指导等工作的协调配合。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门依法开展商用密码监督检查，可以行使下列职权：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）进入商用密码活动场所实施现场检查；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）向当事人的法定代表人、主要负责人 and 其他有关人员调查、了解有关情况；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）查阅、复制有关合同、票据、账簿以及其他有关资料。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门推进商用密码监督管理与社会信用体系相衔接，依法建立推行商用密码经营主体信用记录、信用分级分类监管、失信惩戒以及信用修复等机制。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码检测、认证机构 and 电子政务电子认证服务机构及其工作人员，应当对其在商用密码活动中所知悉的国家秘密 and 商业秘密承担保密义务。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门及其工作人员不得要求商用密码科研、生产、销售、服务、进出口等单位 and 商用密码检测、认证机构向其披露源代码等密码相关专有信息，并对其在履行职责中知悉的商业秘密 and 个人隐私严格保密，不得泄露或者非法向他人提供。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门依法开展商用密码监督管理，相关单位 and 人员应当予以配合，任何单位 and 个人不得非法干预 and 阻挠。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第四十九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "任何单位或者个人有权向密码管理部门 and 有关部门举报违反本条例的行为。密码管理部门 and 有关部门接到举报，应当及时核实、处理，并为举报人保密。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第八章　法律责任",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第五十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "违反本条例规定，未经认定向社会开展商用密码检测活动，或者未经认定从事电子政务电子认证服务的，由密码管理部门责令改正或者停止违法行为，给予警告，没收违法产品 and 违法所得；违法所得30万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足30万元的，可以并处10万元以上30万元以下罚款。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "违反本条例规定，未经批准从事商用密码认证活动的，由市场监督管理部门会同密码管理部门依照前款规定予以处罚。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码检测机构开展商用密码检测，有下列情形之一的，由密码管理部门责令改正或者停止违法行为，给予警告，没收违法所得；违法所得30万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足30万元的，可以并处10万元以上30万元以下罚款；情节严重的，依法吊销商用密码检测机构资质：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）超出批准范围；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）存在影响检测独立、公正、诚信的行为；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）出具的检测数据、结果虚假或者失实；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（四）拒不报送或者不如实报送实施情况；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（五）未履行保密义务；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（六）其他违反法律、行政法规 and 商用密码检测技术规范、规则开展商用密码检测的情形。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "商用密码认证机构开展商用密码认证，有下列情形之一的，由市场监督管理部门会同密码管理部门责令改正或者停止违法行为，给予警告，没收违法所得；违法所得30万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足30万元的，可以并处10万元以上30万元以下罚款；情节严重的，依法吊销商用密码认证机构资质：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）超出批准范围；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）存在影响认证独立、公正、诚信的行为；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）出具的认证结论虚假或者失实；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（四）未对其认证的商用密码产品、服务、管理体系实施有效的跟踪调查；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（五）未履行保密义务；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（六）其他违反法律、行政法规 and 商用密码认证技术规范、规则开展商用密码认证的情形。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "违反本条例第二十条、第二十一条规定，销售或者提供未经检测认证或者检测认证不合格的商用密码产品，或者提供未经认证或者认证不合格的商用密码服务的，由市场监督管理部门会同密码管理部门责令改正或者停止违法行为，给予警告，没收违法产品 and 违法所得；违法所得10万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足10万元的，可以并处3万元以上10万元以下罚款。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "电子认证服务机构违反法律、行政法规 and 电子认证服务密码使用技术规范、规则使用密码的，由密码管理部门责令改正或者停止违法行为，给予警告，没收违法所得；违法所得30万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足30万元的，可以并处10万元以上30万元以下罚款；情节严重的，依法吊销电子认证服务使用密码的证明文件。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "电子政务电子认证服务机构开展电子政务电子认证服务，有下列情形之一的，由密码管理部门责令改正或者停止违法行为，给予警告，没收违法所得；违法所得30万元以上的，可以并处违法所得1倍以上3倍以下罚款；没有违法所得或者违法所得不足30万元的，可以并处10万元以上30万元以下罚款；情节严重的，责令停业整顿，直至吊销电子政务电子认证服务机构资质：",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（一）超出批准范围；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（二）拒不报送或者不如实报送实施情况；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（三）未履行保密义务；",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "（四）其他违反法律、行政法规 and 电子政务电子认证服务技术规范、规则提供电子政务电子认证服务的情形。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "电子签名人或者电子签名依赖方因依据电子政务电子认证服务机构提供的电子签名认证服务在政务活动中遭受损失，电子政务电子认证服务机构不能证明自己无过错的，承担赔偿责任。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "政务活动中电子签名、电子印章、电子证照等涉及的电子认证服务，违反本条例第三十条规定，未由依法设立的电子政务电子认证服务机构提供的，由密码管理部门责令改正，给予警告；拒不改正或者有其他严重情节的，由密码管理部门建议有关国家机关、单位对直接负责的主管人员 and 其他直接责任人员依法给予处分或者处理。有关国家机关、单位应当将处分或者处理情况书面告知密码管理部门。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十八条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "违反本条例规定进出口商用密码的，由国务院商务主管部门或者海关依法予以处罚。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第五十九条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "窃取他人加密保护的信息，非法侵入他人的商用密码保障系统，或者利用商用密码从事危害国家安全、社会公共利益、他人合法权益等违法活动的，由有关部门依照《中华人民共和国网络安全法》 and 其他有关法律、行政法规的规定追究法律责任。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "关键信息基础设施的运营者违反本条例第三十八条、第三十九条规定，未按照要求使用商用密码，或者未按照要求开展商用密码应用安全性评估的，由密码管理部门责令改正，给予警告；拒不改正或者有其他严重情节的，处10万元以上100万元以下罚款，对直接负责的主管人员处1万元以上10万元以下罚款。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十一条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "关键信息基础设施的运营者违反本条例第四十条规定，使用未经安全审查或者安全审查未通过的涉及商用密码的网络产品或者服务的，由有关主管部门责令停止使用，处采购金额1倍以上10倍以下罚款；对直接负责的主管人员 and 其他直接责任人员处1万元以上10万元以下罚款。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十二条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "网络运营者违反本条例第四十一条规定，未按照国家网络安全等级保护制度要求使用商用密码保护网络安全的，由密码管理部门责令改正，给予警告；拒不改正或者导致危害网络安全等后果的，处1万元以上10万元以下罚款，对直接负责的主管人员处5000元以上5万元以下罚款。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十三条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "无正当理由拒不接受、不配合或者干预、阻挠密码管理部门、有关部门的商用密码监督管理的，由密码管理部门、有关部门责令改正，给予警告；拒不改正或者有其他严重情节的，处5万元以上50万元以下罚款，对直接负责的主管人员 and 其他直接责任人员处1万元以上10万元以下罚款；情节特别严重的，责令停业整顿，直至吊销商用密码许可证件。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十四条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "国家机关有本条例第六十条、第六十一条、第六十二条、第六十三条所列违法情形的，由密码管理部门、有关部门责令改正，给予警告；拒不改正或者有其他严重情节的，由密码管理部门、有关部门建议有关国家机关对直接负责的主管人员 and 其他直接责任人员依法给予处分或者处理。有关国家机关应当将处分或者处理情况书面告知密码管理部门、有关部门。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十五条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "密码管理部门 and 有关部门的工作人员在商用密码工作中滥用职权、玩忽职守、徇私舞弊，或者泄露、非法向他人提供在履行职责中知悉的商业秘密、个人隐私、举报人信息的，依法给予处分。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第六十六条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "违反本条例规定，构成犯罪的，依法追究刑事责任；给他人造成损害的，依法承担民事责任。",
+                "tag": "p"
+            },
+            {
+                "type": "text",
+                "content": "第九章　附　　则",
+                "tag": "h3"
+            },
+            {
+                "type": "text",
+                "content": "第六十七条",
+                "tag": "strong"
+            },
+            {
+                "type": "text",
+                "content": "本条例自2023年7月1日起施行。",
+                "tag": "p"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1081640.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "近期，工业和信息化部印发《工业互联网创新发展行动计划（2021-2023年）》，提出到2023年，我国工业互联网新型基础设施建设量质并进，新模式、新业态大范围推广，产业综合实力显著提升；新型基础设施进一步完善、融合应用成效进一步彰显、技术创新能力进一步提升、产业发展生态进一步健全、安全保障能力进一步增强。\n\n重点任务在工业互联网标识解析建设、技术创新、标准制定、密码应用等方面提出明确要求，奥联基于全密码算法设计能力和IBC标识密码技术研究领先能力，在以上方面已取得实际性成果。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "6.完善标识解析体系建设。实施《工业互联网标识管理办法》，建立标识编码分配协调机制。提升国家顶级节点服务能力。引导建设运营标识解析二级节点和递归节点。建设兼容开放、服务全球的标识解析服务系统，推动标识解析与区块链、大数据等技术融合创新，提升数据综合服务能力，增强对域名等网络基础资源的支撑能力。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "•　奥联于2018年起参与国家工信部关于工业互联网标识解析的顶层安全架构设计，可提供完整的标识解析二级节点建设方案。建设方案遵循国务院、工信部相关文件精神，遵循公安部等级保护2.0 and国家密码管理局信息系统密码应用要求等标准，围绕工业互联网标识解析安全技术及设备工程化需求，基于密码技术为工业互联网标识解析构建安全体系，保障工业互联网标识解析应用的安全运行。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "28.完善标准体系。结合5G、边缘计算、人工智能等新技术应用和产业发展趋势，完善工业互联网标准体系，明确标准化重点领域和方向，指导标准化工作分领域推进实施。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "30.加强国际合作。积极参与国际电信联盟（ITU）、国际标准化组织（ISO）、国际电工技术委员会（IEC）等国际组织活动及国际标准研制，加强与国际产业推进组织的技术交流与标准化合作，促进标准应用共享。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "•　奥联在IBC标识密码技术研究和应用上处于国际领先水平，自主或参与设计的多个密码算法已被ISO、IEEE、3GPP和IETF等国际标准组织采纳为标准算法。2020年3月，联合华为、中国电信提交的ITU标准X.1365《在电信网络上使用基于身份的密码来支持物联网服务的安全方法》正式发布，填补了标识密码技术在该领域的空白；4月，提交的SM9“标识加密算法”和“密钥交换协议”推进至ISO/IEC标准补篇草案（DAM）阶段，有望在2021年成为国际标准；同月，参与制定的国家标准GB/T 38635-2020《信息安全技术 SM9标识密码算法》系列标准正式发布。以上国际标准、国家标准可应用于工业互联网安全场景，助力产业发展。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "31.强化基础技术支撑。鼓励高校科研机构加强工业互联网基础理论研究，提升原始创新水平。鼓励信息技术与工业技术企业联合推进工业5G芯片/模组/网关、智能传感器、边缘操作系统等基础软硬件研发。加强工业机理模型、先进算法、数据资源的积累、突破与融合。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "•　奥联可提供NB-IoT国密安全模组和支持信创的安全接入网关。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "•　NB-IoT国密安全模组具有标准的NB通讯能力，同时支持国密SM2、SM3、SM4、SM9等算法。在模组中内嵌密钥分发，密码运算能力。外部应用通过AT指令访问NB模组的安全服务，可实现身份认证、数据加解密、数字签名验签功能，具有功耗小、成本低、无额外芯片、无需修改硬件设计、安全功能开发简洁等优点，并与电信AEP平台无缝对接。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "•　支持信创的安全接入网关，支持SM2、SM3、SM4、SM9算法，具有密钥协商、身份认证、IPSec/SSL隧道加密等功能。支持适配龙芯、兆芯、飞腾、鲲鹏芯片和银河麒麟、中标麒麟、统信操作系统，可应用于各类型工业互联网安全平台建设。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "40.加强网络安全供给创新突破。强化协同创新，针对PLC、数据采集与监视控制系统（SCADA）、远程信息处理器（T-BOX）等关键核心领域，鼓励重点网络安全企业和工业企业联合攻关，打造具备内嵌安全功能的设备产品。加快密码应用核心技术突破和标准研制，推动需求侧、供给侧有效对接 and协同创新，推动密码技术深入应用。优化服务供给，支持云服务企业、网络安全企业在重点城市联合建设安全运营服务中心，实施中小企业“安全上云”工程。面向装备、电子信息等重点行业，支持工业龙头企业建设一批具有广泛影响力的安全公共服务平台。针对流程工业、离散工业差异化特点，加快形成优秀安全解决方案和供应商目录，实现供需快速精准对接。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "•　奥联推出基于轻量级密码算法的工业互联网安全系统解决方案，以轻量级密码算法SM9为核心，综合使用国密SM3、SM4等算法，采用国密优化的安全传输协议TLS，建设相应的工业信息安全密码支撑系统，全面为工业互联网系统提供安全可靠的网络环境和数据加密服务的整体解决方案，满足工业互联网系统中的双向身份鉴别、精准权限控制、数据传输安全、控制指令防篡改和数据存储安全保护等安全需求。已成功应用于水利能源、制造业、轨道交通、供应链等领域。",
+                "tag": "LI"
+            },
+            {
+                "type": "text",
+                "content": "•　方案优势：1）增强系统安全身份认证；2）支持多种工控网络协议；3）支持海量用户及设备的并发接入；4）控制访问与授权，防数据被篡改；5）加密传输及存储，防数据泄露；6）安全可靠，适合行业应用及推广。",
+                "tag": "SECTION"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1011442.html",
+        "chunks": [
+            {
+                "type": "image",
+                "content": "https://img.wanwang.xin/contents/sitefiles2059/10298781/images/44839435.png"
+            },
+            {
+                "type": "text",
+                "content": "2019年12月30日，国务院办公厅印发《国家政务信息化项目建设管理办法》（以下简称《办法》），对国家政务信息系统的规划、审批、建设、共享和监管作出规定。"
+            },
+            {
+                "type": "text",
+                "content": "其中第十五条要求，项目建设单位应当落实国家密码管理有关法律法规和标准规范的要求，同步规划、同步建设、同步运行密码保障系统并定期进行评估。"
+            },
+            {
+                "type": "text",
+                "content": "通知原文："
+            },
+            {
+                "type": "text",
+                "content": "国务院办公厅关于印发国家政务信息化项目建设管理办法的通知"
+            },
+            {
+                "type": "text",
+                "content": "国办发〔2019〕57号"
+            },
+            {
+                "type": "text",
+                "content": "各省、自治区、直辖市人民政府，国务院各部委、各直属机构："
+            },
+            {
+                "type": "text",
+                "content": "《国家政务信息化项目建设管理办法》已经国务院同意，现印发给你们，请认真贯彻执行。"
+            },
+            {
+                "type": "text",
+                "content": "国务院办公厅"
+            },
+            {
+                "type": "text",
+                "content": "2019年12月30日"
+            },
+            {
+                "type": "text",
+                "content": "（此件公开发布）"
+            },
+            {
+                "type": "text",
+                "content": "国家政务信息化项目建设管理办法"
+            },
+            {
+                "type": "text",
+                "content": "第一章　总　　则"
+            },
+            {
+                "type": "text",
+                "content": "第一条　为规范国家政务信息化建设管理，推动政务信息系统跨部门跨层级互联互通、信息共享和业务协同，强化政务信息系统应用绩效考核，推进数字政府建设，根据党中央、国务院决策部署，制定本办法。"
+            },
+            {
+                "type": "text",
+                "content": "第二条　本办法适用于国家政务信息化项目（以下简称项目）的规划、审批、建设、共享和监管。国家政务信息化项目主要是指国家发展改革委审批或者核定建设内容及投资规模的，由国务院部门和有关单位负责在该部门和单位本级或者跨行业、跨地区统筹开展的政务信息化项目，有关涉密项目除外。"
+            },
+            {
+                "type": "text",
+                "content": "第三条　国家政务信息化建设管理应当坚持统筹规划、共建共享、业务协同、安全可靠的原则。"
+            },
+            {
+                "type": "text",
+                "content": "第四条　国家发展改革委牵头负责国家政务信息化建设的统筹规划，会同财政部、中央网信办等有关部门负责国家政务信息化项目建设投资管理工作。"
+            },
+            {
+                "type": "text",
+                "content": "第五条　国务院办公厅、国家发展改革委、财政部、中央网信办会同有关部门建立国家政务信息化项目建设投资会商机制（以下简称会商机制），对国家政务信息化建设的规划、年度计划、项目建设投资等事项进行会商，确立各部门项目建设重点，统筹协调项目建设工作。"
+            },
+            {
+                "type": "text",
+                "content": "第二章　规划和审批管理"
+            },
+            {
+                "type": "text",
+                "content": "第六条　国家发展改革委会同中央网信办等有关部门编制国家政务信息化建设规划（以下简称规划），报国务院批准后实施。国务院各部门应当编制本部门政务信息化建设规划，报送国家发展改革委、财政部、中央网信办备案。"
+            },
+            {
+                "type": "text",
+                "content": "第七条　国家发展改革委根据规划和相关政策文件，商中央网信办等有关部门提出年度国家政务信息化项目清单，报会商机制审定。"
+            },
+            {
+                "type": "text",
+                "content": "第八条　国务院各部门所有新建和改扩建项目均应当通过全国投资项目在线审批监管平台（以下简称在线平台）的政务信息化项目管理子系统进行项目申报和审批，并使用在线平台生成的项目代码办理相关手续。"
+            },
+            {
+                "type": "text",
+                "content": "第九条　根据项目建设内容、建设规模、技术方案等情况，国家发展改革委对项目分别实行审批制和备案制管理。"
+            },
+            {
+                "type": "text",
+                "content": "第十条　国家发展改革委审批项目建议书、可行性研究报告、初步设计方案和投资概算。对党中央、国务院有明确要求，或者涉及国家重大战略、国家安全、应对突发事件等情况需要紧急建设的项目，由项目建设单位提出申请，经会商机制审定后，简化审批程序，或者由国家发展改革委直接审批项目可行性研究报告（代项目建议书）。"
+            },
+            {
+                "type": "text",
+                "content": "第十一条　跨部门共建共享的项目，由牵头部门会同参建部门共同开展跨部门、跨层级、跨业务的流程优化、系统整合、数据共享等前期工作，并商财政部、中央网信办等有关部门，形成项目建设和运维资金分摊方案后，联合由牵头部门申报项目建议书。"
+            },
+            {
+                "type": "text",
+                "content": "第十二条　对于已经列入规划的项目，项目建设单位可以直接报送可行性研究报告。"
+            },
+            {
+                "type": "text",
+                "content": "第十三条　可行性研究报告的编制、报送、咨询评估和审批，应当符合《政府投资条例》等有关规定。项目建设单位应当依据项目建议书批复，组织编制可行性研究报告，报国家发展改革委审批。"
+            },
+            {
+                "type": "text",
+                "content": "第十四条　初步设计方案和投资概算的编制、报送、咨询评估和审批，应当符合《政府投资条例》等有关规定。项目建设单位应当依据可行性研究报告批复，初步设计阶段，原则上应当委托具有相应资质的设计单位编制初步设计方案和投资概算，报国家发展改革委审批。"
+            },
+            {
+                "type": "text",
+                "content": "第十五条　项目建设单位应当落实国家密码管理有关法律法规和标准规范的要求，同步规划、同步建设、同步运行密码保障系统并定期进行评估。"
+            },
+            {
+                "type": "text",
+                "content": "第十六条　项目建设单位应当在项目建议书、可行性研究报告、初步设计方案和投资概算等申报材料中，对项目符合规划情况、信息资源共享开放情况、通过政务外网或者其他专网进行部署情况、密码应用和安全审查情况、应用自主可控软硬件产品情况等进行说明，并对提供材料的真实性负责。"
+            },
+            {
+                "type": "text",
+                "content": "第三章　建设和资金管理"
+            },
+            {
+                "type": "text",
+                "content": "第十七条　项目建设单位应当严格按照批复的初步设计方案和投资概算实施项目建设。项目建设内容、建设规模、技术方案等发生重大变更，或者投资概算超过批复投资概算10%的，项目建设单位应当通过在线平台提出调整申请，报国家发展改革委审批。"
+            },
+            {
+                "type": "text",
+                "content": "第十八条　项目建设单位应当建立健全项目建设管理制度，强化项目建设实施管理，确保工程质量和安全。"
+            },
+            {
+                "type": "text",
+                "content": "第十九条　项目建设单位应当按照政府采购法等有关规定，依法依规开展招标采购工作。"
+            },
+            {
+                "type": "text",
+                "content": "第二十条　项目建设单位应当按照国家有关规定，做好项目建设资金管理，确保资金专款专用。"
+            },
+            {
+                "type": "text",
+                "content": "第四章　监督管理"
+            },
+            {
+                "type": "text",
+                "content": "第二十一条　项目建设单位应当通过在线平台如实报送项目建设进度、资金使用等情况。国家发展改革委、财政部、中央网信办等有关部门通过在线平台对项目建设实施情况进行监测调度和监督检查。"
+            },
+            {
+                "type": "text",
+                "content": "第二十二条　项目建设单位应当建立健全项目验收管理制度，做好项目竣工验收工作。项目建成后半年内，项目建设单位应当依据可行性研究报告批复、初步设计方案和投资概算批复等，组织开展竣工验收，并将验收情况报国家发展改革委备案。"
+            },
+            {
+                "type": "text",
+                "content": "第二十三条　项目建设单位应当建立健全项目绩效评价制度，对项目建设目标实现程度、运营效果、经济效益和社会效益等进行自评。国家发展改革委、财政部、中央网信办等有关部门根据需要对项目进行绩效评价。"
+            },
+            {
+                "type": "text",
+                "content": "第二十四条　项目建设单位应当建立健全项目档案管理制度，做好项目档案管理工作。"
+            },
+            {
+                "type": "text",
+                "content": "第五章　附则"
+            },
+            {
+                "type": "text",
+                "content": "第二十五条　涉密项目建设管理按照国家有关保密规定执行。"
+            },
+            {
+                "type": "text",
+                "content": "第二十六条　本办法由国家发展改革委负责解释。"
+            },
+            {
+                "type": "text",
+                "content": "第二十七条　本办法自2020年2月1日起施行。其他有关规定与本办法不一致的，以本办法为准。"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1010737.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "2019年10月26日"
+            },
+            {
+                "type": "text",
+                "content": "十三届全国人大常委会第十四次会议"
+            },
+            {
+                "type": "text",
+                "content": "表决通过密码法"
+            },
+            {
+                "type": "text",
+                "content": "将自2020年1月1日起施行"
+            },
+            {
+                "type": "text",
+                "content": "《中华人民共和国密码法》于2020年1月1日正式实施。"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeO6tdyIbnOBNbmYbCRVTY8iaMPicvxOfLFmGUJxXBDbXW34lh9yaoIyjvg/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeO8r9xTzxJurTY8Jpz707jHSBkW0Gbqp2RQejcMWLRiaMwAWXbyDLlW9A/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeOUldIYzrWQKZTeThgDhZza0s2CsbF5KPTic5ic8JvZuKPlVyMlqSxJAGg/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeOxlBsGPulu9FopeGY9H81iczounQwhBgwSg1DqjPz9RVRibWX9wxIUFaw/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeOdFz3UBUf0XE1QnbtamqHat3LHtfSjWYy3k66U8pwo42jZ1XCq5JGPg/640?wx_fmt=jpeg"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1010724.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "密码是人类科学活动和技术发展的结晶，是保护网络与信息安全的核心技术和基础支撑。在抗战时期，密码就像是“千里眼”和“顺风耳”，在战争中起着决定性作用。如今，密码工作已经拓展到了金融、电信、社保、交通、能源、水利、卫生、税务等各个领域，通过加密保护和安全认证，构筑起维护国家安全的密码防线。全社会逐渐凝聚起知密用密的合力，为《中华人民共和国密码法》的实施营造了良好氛围。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/20037294.png"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/1010784.html",
+        "chunks": [
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "10月13日，备受关注的个人信息保护法草案提请十三届全国人大常委会初次审议。草案共八章七十条，聚焦“个人信息保护”，就个人信息处理规则、个人信息跨境传输、个人信息保护监督管理职责等作出规定。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "数字显示，截至2020年3月，我国互联网用户已达9亿，互联网网站超过400万个，应用程序数量超过300万个，个人信息保护已成为广大人民群众最关心最直接最现实的利益问题之一。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "“为及时回应广大人民群众的呼声和期待，制定个人信息保护法，将广大人民群众的个人信息权益实现好、维护好、发展好，具有重要意义。”全国人大常委会法工委作关于草案说明时指出。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "草案共八章七十条。从内容上看，草案聚焦目前个人信息保护的突出问题，落实个人信息保护责任，加大对违法行为的惩处力度。"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/mHvPQibgPEl7oVkAiafyy4jk2icECbrONtFLUXwWF4jORLCa2rTopDINWX82zznVnCw8BicSMSFMB50BJxibv5r3kBg/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "聚焦突出问题  健全个人信息处理系列规则"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "设专节对处理敏感个人信息作出更严格的限制"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "在应对新冠肺炎疫情中，大数据应用为联防联控和复工复产提供了有力支持。与此同时，个人信息收集、使用的范围和方式等问题也引人关注。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "草案确立了“告知—同意”为核心的个人信息处理规则。草案规定，处理个人信息应当在事先充分告知的前提下取得个人同意，并且个人有权撤回同意；重要事项发生变更的，应当重新取得个人同意。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "但“告知—同意”规则也不完全适用所有情形。草案明确，为了应对突发公共卫生事件，或者紧急情况下为保护自然人的生命健康和财产安全所必需，不需要取得个人同意。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "现实生活中，一些企业过度收集个人信息、强制“绑架”式收集个人信息等更为常见。为此，草案规定，处理个人信息应当采用对个人权益影响最小的方式，收集个人信息应当限于实现处理目的的最小范围。处理个人信息应当公开、透明，公开处理规则，明示处理的目的、方式和范围。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "草案还设专节对处理敏感个人信息作出更严格的限制。草案规定，敏感个人信息包括种族、民族、宗教信仰、个人生物特征、医疗健康、金融账户、个人行踪等。只有在具有特定的目的和充分的必要性，并采取严格保护措施的情形下，方可处理敏感个人信息。"
+            },
+            {
+                "type": "image",
+                "src": "https://mmbiz.qpic.cn/mmbiz_jpg/jjXFOD5xicYL0DLKu8s90g4yp8n7yneeOUldIYzrWQKZTeThgDhZza0s2CsbF5KPTic5ic8JvZuKPlVyMlqSxJAGg/640?wx_fmt=jpeg"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "明确大型网络平台责任  斩断“黑灰产”链条"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "对从事损害我国公民个人信息权益等活动的境外组织或者个人，草案规定，国家网信部门可以将其列入限制或者禁止个人信息提供清单，采取限制或者禁止向其提供个人信息等措施。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "当前，个人信息保护已成为全球关注的热点问题。草案明确，境外的组织、个人向中华人民共和国境内自然人提供产品或者服务，或者为分析、评估境内自然人的行为等活动，处理境内自然人个人信息的，也适用本法，并对其在中华人民共和国境内设立专门机构或者指定代表等作出规定。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "草案还对跨境提供个人信息作出限制。草案规定，关键信息基础设施运营者和处理个人信息达到国家网信部门规定数量的处理者，确需向境外提供个人信息的，应当通过国家网信部门组织的安全评估。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "针对“人肉搜索”、非法买卖个人信息等行为，草案明确，任何个人和组织不得违反法律、行政法规的规定，买卖、提供或者公开他人个人信息。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "加大惩处力度  对违法行为设严格法律责任"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "侵害个人信息权益的违法行为，情节严重的，没收违法所得，并处五千万元以下或者上一年度营业额百分之五以下罚款。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "为了有效遏制互联网乱象，草案设置了严格的法律责任。草案规定，违反本法规定处理个人信息，或者处理个人信息未履行本法规定个人信息保护义务的，由履行个人信息保护职责的部门责令改正，没收违法所得，给予警告；拒不改正的，并处一百万元以下罚款；对直接负责的主管人员和其他直接责任人员处一万元以上十万元以下罚款。"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "有前款规定的违法行为，情节严重的，由履行个人信息保护职责的部门责令改正，没收违法所得，并处五千万元以下或者上一年度营业额百分之五以下罚款，并可以责令暂停相关业务、停业整顿、通报有关主管部门吊销相关业务许可或者吊销营业执照；对直接负责的主管人员和其他直接责任人员处十万元以上一百万元以下罚款。"
+            },
+            {
+                "type": "image",
+                "src": "https://nwzimg.wezhan.cn/contents/sitefiles2036/10180355/images/20037622.png"
+            },
+            {
+                "type": "text",
+                "tag": "P",
+                "content": "来源：法治日报、NIS研究院公众号"
+            }
+        ]
+    },
+    {
+        "url": "https://new.myibc.net/newsinfo/807910.html",
+        "chunks": [
+            {
+                "type": "text",
+                "content": "原标题：祛除工业大数据“顽疾”有新招",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "近年来，随着中国新一代信息技术与工业融合不断深化，数据驱动的工业新模式新业态不断涌现。相较于互联网服务领域大数据应用的普及 and 成熟，中国工业大数据总体上仍处于探索和起步阶段。工业和信息化部近期发布《关于工业大数据发展的指导意见》（以下简称《意见》），加快推动中国工业大数据发展步伐。",
+                "tag": "P"
+            },
+            {
+                "type": "image",
+                "src": "https://www.myibc.net/img/news/2020-07-06-02.png",
+                "alt": ""
+            },
+            {
+                "type": "text",
+                "content": "改变“不想用不敢用”现象",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "当前，中国工业大数据在采集过程中存在不少问题，比如，因企业信息化基础差、设备接口不开放等造成数据难以采集；企业数据底账不清，不知道自己有哪些数据，大部分工业数据处于“睡眠”状态；数据孤岛、数据失真等现象普遍。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "在中国社科院工业经济研究所研究员贺俊看来，出现上述问题的主要原因在于，当前工业大数据的积累程度严重不足，同时，很多企业尤其是中小微企业仍心存疑虑，将工业大数据视为企业机密，数据开放积极性不强，“不想用、不敢用”倾向严重。“这就需要政府发挥职能，统筹建设国家工业大数据平台，积极引导企业意识到采集工业大数据的好处。”贺俊说。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "比如，在新冠肺炎疫情暴发初期，针对重点物资保障需求不明、底数不清、对接不畅等困难，工信部依托“制造强国产业基础大数据平台”快速建成“国家重点医疗物资保障平台”，运用信息化手段保障重点医疗物资的科学调度、统筹平衡和高效供应，为打赢疫情防控阻击战提供有力支撑。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "工信部信息技术发展司相关负责人表示，此次《意见》的出台，正是为了形成完整贯通的高质量数据链，推动工业大数据全面采集、高效互通和高质量汇聚。《意见》中提出，支持工业企业实施设备数字化改造，升级各类信息系统，推动研发、生产、经营、运维等全流程的数据采集；支持优势产业上下游企业开放数据，加强合作，共建安全可信的工业数据空间，建立互利共赢的共享机制；建设国家工业互联网大数据中心，汇聚工业数据，支撑产业监测分析，赋能企业创新发展等。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "筑牢数据安全防线",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "今年6月，日本汽车制造商本田（Honda）表示，其服务器受到Ekans勒索软件攻击。据悉，该勒索软件拥有相对较新的攻击模式，具有锁定工厂中工业控制系统和机械的功能。相关数据显示，中国34%的联网工业设备存在漏洞，这些设备的厂商、型号、参数等信息长期遭恶意嗅探，仅在2019年上半年嗅探事件就高达5151万起。这无疑给政府和企业敲响了警钟。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "工信部信息技术发展司相关负责人介绍，当前中国工业信息安全防护能力之所以滞后于工业融合发展进程，除了技术上传统IT信息安全系统无法有效防护工业数据安全外，工业数据安全责任体系建设方面的部分空白也是重要原因。此外，中国工业信息安全领域的企业规模普遍较小，缺少龙头企业，产品竞争力不强。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "《关于工业大数据发展的指导意见》提出，构建工业数据安全管理体系；加强工业数据安全产品研发；开展加密传输、访问控制、数据脱敏等安全技术攻关，提升防篡改、防窃取、防泄露能力；加快培育安全骨干企业，增强数据安全服务，培育良好安全产业生态。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "“安全问题已成为制约工业大数据全面发展的重要因素。”贺俊表示，同时要意识到，创新和强化工业数据安全防护，还需要政府做好制度建设，进一步厘清企业在数据防护方面承担的责任和义务。《意见》强调，明确企业安全主体责任和各级政府监督管理责任，构建工业数据安全责任体系等，这些措施将筑牢中国工业大数据发展的底线和防线。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "向深度应用持续发力",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "当前，工业大数据已成为推动制造业数字化、网络化、智能化发展的关键生产要素。在日趋激烈的国际竞争面前，谁掌握了工业大数据，谁就掌握了促进市场发展的战略资源。赛迪顾问等机构发布的《2020中国工业大数据产业创新与投资趋势》显示，在政策和技术的驱动下，工业大数据市场将成为下一个蓝海，人工智能、边缘计算等新兴技术将持续助力工业变革和制造商业模式变革。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "发展工业大数据是一项复杂的系统工程，既需要在宏观层面加强体系化布局，建立全面系统的工业大数据生态，也需要在微观层面务实着力，提升企业的数据管理能力。这些都亟须推动《意见》尽快落地生根。据悉，工信部将与各地工业和信息化主管部门做好对接，建立纵向联动、横向协同的推进工作机制，落实《意见》相关措施。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "贺俊建议部分领军企业在数据应用上深入探索，解决中小微企业“不想用、不敢用”问题，通过在供给端培育海量工业APP、工业大数据解决方案供应商、向中小企业开放数据服务能力等手段，降低企业数据应用的成本投入和专业壁垒，共同推动工业大数据全面深度应用。",
+                "tag": "P"
+            },
+            {
+                "type": "text",
+                "content": "来源：中国人大网",
+                "tag": "P"
+            }
+        ]
+    }
+]
